@@ -3,19 +3,20 @@ using System.Collections;
 
 public class PlayerAbilities : MonoBehaviour {
 	
-	ParticleSystem abilityParticles;
+	public ParticleSystem aP;
 
 	void start() {
-		abilityParticles = GetComponent<ParticleSystem> ();
-		abilityParticles.Stop();
-		abilityParticles.Clear();
+		aP = GetComponent <ParticleSystem> ();
 	}
 
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetButton ("Fire1"))
+		if (Input.GetButtonDown ("Fire1"))
 		{
-			abilityParticles.Play ();
+			if (aP != null) {
+				Debug.Log ("SHOOT");
+				aP.Play ();
+			}
 		}
 
 	}
