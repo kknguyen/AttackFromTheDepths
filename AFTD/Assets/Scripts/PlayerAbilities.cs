@@ -4,25 +4,28 @@ using System.Collections;
 public class PlayerAbilities : MonoBehaviour {
 	
 	public ParticleSystem aP;
+	public float projectileSpeed = 10f;
+	public Rigidbody2D abilityPrefab;
+
 
 	void start() {
-		aP = GetComponent <ParticleSystem> ();
 	}
 
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetButtonDown ("Fire1"))
+		if (Input.GetMouseButton (0))
 		{
-			if (aP != null) {
-				Debug.Log ("SHOOT");
-				aP.Stop ();
-				aP.Play ();
-			}
+			cast ();
+
 		}
 
 	}
 
 	void cast() {
-
+		aP.Stop ();
+		aP.Play ();
+		Rigidbody2D bPrefab = Instantiate(abilityPrefab, transform.position, Quaternion.identity) as Rigidbody2D;
+		bPrefab.GetComponent<Rigidbody2D>().velocity = gameObject.transform.up * 10;
+		Debug.Log (bPrefab.GetComponent<Rigidbody2D> ().velocity);
 	}
 }
