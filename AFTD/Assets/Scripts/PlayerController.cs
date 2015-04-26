@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
 	BoxCollider2D playerBoxCollider2D;
 	int floorMask;
 	float camRayLength = 100f;
+
+	public GameObject fireball;
 	
 	void Awake()
 	{
@@ -18,7 +20,7 @@ public class PlayerController : MonoBehaviour
 		anim = GetComponent<Animator> ();
 		playerRigidbody2D = GetComponent<Rigidbody2D> ();
 		playerBoxCollider2D = GetComponent<BoxCollider2D> ();
-
+		fireball = Resources.Load ("fireball") as GameObject;
 	}
 	
 	void FixedUpdate()

@@ -15,6 +15,7 @@ public class PlayerAbilities : MonoBehaviour {
 		{
 			if (aP != null) {
 				Debug.Log ("SHOOT");
+				aP.Stop ();
 				aP.Play ();
 			}
 		}
