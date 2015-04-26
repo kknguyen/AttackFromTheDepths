@@ -26,6 +26,5 @@ public class PlayerAbilities : MonoBehaviour {
 		aP.Play ();
 		Rigidbody2D bPrefab = Instantiate(abilityPrefab, transform.position, Quaternion.identity) as Rigidbody2D;
 		bPrefab.GetComponent<Rigidbody2D>().velocity = gameObject.transform.up * 10;
-		Debug.Log (bPrefab.GetComponent<Rigidbody2D> ().velocity);
 	}
 }
