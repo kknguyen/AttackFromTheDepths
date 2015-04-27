@@ -10,10 +10,12 @@ public class PlayerController : MonoBehaviour
 	BoxCollider2D playerBoxCollider2D;
 	int floorMask;
 	float camRayLength = 100f;
+	int floorLevel;
 	
 	void Awake()
 	{
 		floorMask = LayerMask.GetMask ("Floor");
+		floorLevel = int.Parse(Application.loadedLevelName);
 		anim = GetComponent<Animator> ();
 		playerRigidbody2D = GetComponent<Rigidbody2D> ();
 		playerBoxCollider2D = GetComponent<BoxCollider2D> ();
@@ -46,7 +48,15 @@ public class PlayerController : MonoBehaviour
 		Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		transform.rotation = Quaternion.LookRotation(Vector3.forward, mousePos - transform.position);
 	}
-	
+
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.gameObject.tag == "upstairs") {
+			floorLevel++;
+			string floorString = floorLevel.ToString ();
+			Application.LoadLevel (floorString);
+		}
+	}
 	//void Animating(float h, float v)
 	//{
 	//bool walking = h != 0f || v != 0f;
