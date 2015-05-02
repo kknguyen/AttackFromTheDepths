@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
 	void Awake()
 	{
 		floorMask = LayerMask.GetMask ("Floor");
-		floorLevel = int.Parse(Application.loadedLevelName);
+		//floorLevel = int.Parse(Application.loadedLevelName);
 		anim = GetComponent<Animator> ();
 		playerRigidbody2D = GetComponent<Rigidbody2D> ();
 		playerBoxCollider2D = GetComponent<BoxCollider2D> ();
