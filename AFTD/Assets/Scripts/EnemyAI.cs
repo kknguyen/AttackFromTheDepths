@@ -9,8 +9,7 @@ public class EnemyAI : MonoBehaviour {
 
 	// Enemy pathfinding
 	private Vector2 zeroVelocity;
-	private int maxRaycastWall;						// Maximum Raycast distance
-	private int maxRaycastPlayer;
+	private int maxRaycast;						// Maximum Raycast distance
 	private bool patrolling;
 	private float waitTime;
 
@@ -36,8 +35,7 @@ public class EnemyAI : MonoBehaviour {
 		wall = 1 << 8;
 		playerLayer = 1 << 9;
 		zeroVelocity = new Vector2 (0, 0);
-		maxRaycastWall = 3;
-		maxRaycastPlayer = 10;
+		maxRaycast = 10;
 		patrolling = false;
 		waitTime = 3;
 	}
@@ -63,19 +61,20 @@ public class EnemyAI : MonoBehaviour {
 		playerDirection = new Vector2 (xDifChase, yDifChase);
 
 		// If the enemy and the player have health left...
-		if(enemyHealth.currentHealth > 0 /* && playerHealth.currentHealth > 0*/)
-		{
-			if (patrolling)
-			{
+		if (enemyHealth.currentHealth > 0 /* && playerHealth.currentHealth > 0*/) {
+			if (patrolling) {
 				patrol ();
-			}
-			else
-			{
+			} else {
 				Debug.Log (seePlayer ());
 				chasePlayer ();
 			}
 		}
 		// Otherwise...
+		else 
+		{
+			this.GetComponent<Rigidbody2D> ().velocity = zeroVelocity;
+		}
+
 	}
 
 	void patrol()
@@ -119,12 +118,12 @@ public class EnemyAI : MonoBehaviour {
 
 	bool seeWall()
 	{
-		return Physics2D.Raycast (transform.position, playerDirection, maxRaycastWall, wall);
+		return Physics2D.Raycast (transform.position, playerDirection, maxRaycast, wall);
 	}
 	bool seePlayer()
 	{
 		print ("i saw player");
-		return Physics2D.Raycast (transform.position, playerDirection, maxRaycastPlayer, playerLayer);
+		return Physics2D.Raycast (transform.position, playerDirection, maxRaycast, playerLayer);
 
 	}
 

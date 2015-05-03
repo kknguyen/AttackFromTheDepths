@@ -33,12 +33,8 @@ public class EnemyController : MonoBehaviour {
 	
 	void Update ()
 	{
-		// If the enemy should be sinking...
-		if(isSinking)
-		{
-			// ... move the enemy down by the sinkSpeed per second.
-			transform.Translate (-Vector3.up * sinkSpeed * Time.deltaTime);
-		}
+		if (currentHealth <= 0 && !isDead )
+			Death ();
 	}
 	
 	
@@ -86,10 +82,11 @@ public class EnemyController : MonoBehaviour {
 		//enemyAudio.Play ();
 
 		Debug.Log ("enemy died");
+		// After 2 seconds destory the enemy.
 	}
 	
 	
-	public void StartSinking ()
+	public void EnemyDestroy ()
 	{
 		// Find and disable the Nav Mesh Agent.
 		GetComponent <NavMeshAgent> ().enabled = false;
@@ -102,8 +99,6 @@ public class EnemyController : MonoBehaviour {
 		
 		// Increase the score by the enemy's score value.
 		//ScoreManager.score += scoreValue;
-		
-		// After 2 seconds destory the enemy.
-		Destroy (gameObject, 2f);
+
 	}
 }
