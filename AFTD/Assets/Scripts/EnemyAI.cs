@@ -16,14 +16,18 @@ public class EnemyAI : MonoBehaviour {
 
 	private Vector3 playerPosition;
 	private Vector2 playerDirection;
-	private float xDif;
-	private float yDif;
+	private float xDifChase;
+	private float yDifChase;
+	private float xDifPatrol;
+	private float yDifPatrol;
+
 	private float speed;
 	private int wall;
 	private int playerLayer;
 	private float distance;
 	private bool stun;
 	private float stunTime;
+	private Vector3 enemyStart;
 
 	void Awake ()
 	{
@@ -44,13 +48,20 @@ public class EnemyAI : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag ("Player").transform;
 		//playerHealth = player.GetComponent <PlayerHealth> ();
 		enemyHealth = GetComponent <EnemyController> ();
-
+		enemyStart = this.transform.position;
 	}
 
 
 
 	void Update ()
 	{
+
+		distance = Vector2.Distance (playerPosition, transform.position);
+		playerPosition = GameObject.FindGameObjectWithTag ("Player").transform.position;
+		xDifChase = playerPosition.x - transform.position.x;
+		yDifChase = playerPosition.y - transform.position.y;
+		playerDirection = new Vector2 (xDifChase, yDifChase);
+
 		// If the enemy and the player have health left...
 		if(enemyHealth.currentHealth > 0 /* && playerHealth.currentHealth > 0*/)
 		{
@@ -60,71 +71,50 @@ public class EnemyAI : MonoBehaviour {
 			}
 			else
 			{
+				Debug.Log (seePlayer ());
 				chasePlayer ();
 			}
 		}
 		// Otherwise...
-		else
-		{
-			// ... disable the nav mesh agent.
-			//nav.enabled = false;
-		}
-
 	}
 
 	void patrol()
 	{
-		distance = Vector2.Distance (playerPosition, transform.position);
-		if (distance < 10)
+		if (seePlayer() && !seeWall ())
 		{
 			patrolling = false;
-			Debug.Log ("chase now");
 		}
-
+		else
+		{
+			xDifPatrol = enemyStart.x - transform.position.x;
+			yDifPatrol = enemyStart.y - transform.position.y;
+			Vector2 enemyDirection = new Vector2 (xDifPatrol, yDifPatrol);
+			if (xDifPatrol < 0.2 && yDifPatrol < 0.2)
+				this.GetComponent<Rigidbody2D> ().velocity = zeroVelocity;
+			else
+				this.GetComponent<Rigidbody2D> ().velocity = enemyDirection.normalized * speed;
+		}
 	}
 
 	void chasePlayer()
 	{
-		distance = Vector2.Distance (playerPosition, transform.position);
-		playerPosition = GameObject.FindGameObjectWithTag ("Player").transform.position;
-
-//		if (stunTime > 0)
-//		{
-//			stunTime -= Time.deltaTime;
-//			Debug.Log ("reduce stun time");
-//		}
-//		else
-//		{
-//			stun = false;
-//			Debug.Log (stun);
-//		}
-		if (distance < 3)
+		Debug.Log ("Entered chaseplayer()");
+		if (distance < 3 && !seeWall() && seePlayer ())
 		{
 			this.GetComponent<Rigidbody2D> ().velocity = zeroVelocity;
 		}
-		else if (distance >= 3 && distance < 10)
+		else if (!seeWall() && seePlayer ())
 		{
-			xDif = playerPosition.x - transform.position.x;
-			yDif = playerPosition.y - transform.position.y;
-			playerDirection = new Vector2 (xDif, yDif);
-
-			if (!seeWall())
-			{
 				this.GetComponent<Rigidbody2D> ().velocity = playerDirection.normalized * speed;
 				waitTime = 3;
-				Debug.Log ("im chasing");
-			}
-			else
-			{
-				this.GetComponent<Rigidbody2D> ().velocity = zeroVelocity;
-				enemyWait ();
-			}
+				print ("im chasing");
 		}
-		else if ( distance >= 10)
+		else
 		{
 			this.GetComponent<Rigidbody2D> ().velocity = zeroVelocity;
 			enemyWait ();
 		}
+
 	}
 
 	bool seeWall()
@@ -133,7 +123,9 @@ public class EnemyAI : MonoBehaviour {
 	}
 	bool seePlayer()
 	{
+		print ("i saw player");
 		return Physics2D.Raycast (transform.position, playerDirection, maxRaycastPlayer, playerLayer);
+
 	}
 
 	void enemyWait()
@@ -141,11 +133,11 @@ public class EnemyAI : MonoBehaviour {
 		if (waitTime > 0)
 		{
 			waitTime -= Time.deltaTime;
-			Debug.Log ("im waiting");
+			print ("im waiting");
 		}
 		else
 		{
-			Debug.Log ("enter patrol");
+			print ("enter patrol");
 			patrolling = true;
 			waitTime = 3;
 		}
