@@ -29,9 +29,11 @@ public class FireBallClones : MonoBehaviour {
 		}
 		else if (collis.gameObject.tag == "enemy") 
 		{
-			Debug.Log ("hit enemy");
-			Destroy (this.gameObject);
 			EnemyController enemyHealth = collis.GetComponent<EnemyController>();
+			Debug.Log ("hit enemy");
+			if (enemyHealth.currentHealth > 0)
+				Destroy (this.gameObject);
+
 			enemyHealth.currentHealth--;
 			Debug.Log (enemyHealth.currentHealth);
 
