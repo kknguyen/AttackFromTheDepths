@@ -123,7 +123,7 @@ public class EnemyAI : MonoBehaviour
 		}
 		else
 		{
-			while(PatrolSeeWall(patrolDirection))
+			while (PatrolSeeWall(patrolDirection))
 			{
 				if (SeePlayer() && !SeeWall())
 					break;
