@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class EnemyAI : MonoBehaviour {
 
 	private Transform player;               	// Reference to the player's position.
-	//PlayerHealth playerHealth;      			// Reference to the player's health.
+	private PlayerController playerHealth;      // Reference to the player's health.
 	private EnemyController enemyHealth;        // Reference to this enemy's health.
 
 	// Enemy pathfinding
 	private Vector2 zeroVelocity;
 	private int maxRaycast;						// Maximum Raycast distance
+	private int patrolRaycast;					// Raycast length for enemy patrolling
 	private bool patrolling;
 	private float waitTime;
 
@@ -17,8 +19,6 @@ public class EnemyAI : MonoBehaviour {
 	private Vector2 playerDirection;
 	private float xDifChase;
 	private float yDifChase;
-	private float xDifPatrol;
-	private float yDifPatrol;
 
 	private float speed;
 	private int wall;
@@ -27,6 +27,14 @@ public class EnemyAI : MonoBehaviour {
 	private bool stun;
 	private float stunTime;
 	private Vector3 enemyStart;
+	private int maximumRange;		// Max units the enemy can move from its starting point.
+	private float minX;
+	private float maxX;
+	private float minY;
+	private float maxY;
+	private Vector2 patrolDirection;	// The direction that the enemy will patrol towards.
+	private float wallDistance;
+	private float playerDistance;
 
 	void Awake ()
 	{
@@ -38,15 +46,19 @@ public class EnemyAI : MonoBehaviour {
 		maxRaycast = 10;
 		patrolling = false;
 		waitTime = 3;
+		maximumRange = 20;
+		patrolRaycast = 2;
 	}
 
 	void Start ()
 	{
 		// Set up the references.
 		player = GameObject.FindGameObjectWithTag ("Player").transform;
-		//playerHealth = player.GetComponent <PlayerHealth> ();
+		playerHealth = GameObject.FindGameObjectWithTag ("Player").GetComponent <PlayerController>();
 		enemyHealth = GetComponent <EnemyController> ();
-		enemyStart = this.transform.position;
+		newPatrolStartPoint ();
+		newPatrolDirection ();
+
 	}
 
 
@@ -85,24 +97,46 @@ public class EnemyAI : MonoBehaviour {
 		}
 		else
 		{
-			xDifPatrol = enemyStart.x - transform.position.x;
-			yDifPatrol = enemyStart.y - transform.position.y;
-			Vector2 enemyDirection = new Vector2 (xDifPatrol, yDifPatrol);
-			if (xDifPatrol < 0.2 && yDifPatrol < 0.2)
-				this.GetComponent<Rigidbody2D> ().velocity = zeroVelocity;
-			else
-				this.GetComponent<Rigidbody2D> ().velocity = enemyDirection.normalized * speed;
+			while(patrolSeeWall(patrolDirection))
+			{
+				if(seePlayer () && !seeWall ())
+					break;
+				newPatrolDirection ();
+				print (patrolDirection);
+			}
+
+			this.GetComponent<Rigidbody2D> ().velocity = patrolDirection.normalized * speed;
+			print (this.GetComponent<Rigidbody2D> ().velocity);
+			print ("We are patrolling.");
 		}
+	}
+
+	void newPatrolDirection()
+	{
+		float xDifPatrol = Random.Range (minX,maxX) - transform.position.x;
+		float yDifPatrol = Random.Range (minY,maxY) - transform.position.y;
+		patrolDirection = new Vector2 (xDifPatrol, yDifPatrol);
+	}
+
+	void newPatrolStartPoint()
+	{
+		enemyStart = this.transform.position;
+		minX = enemyStart.x - maximumRange;
+		maxX = enemyStart.x + maximumRange;
+		minY = enemyStart.y - maximumRange;
+		maxY = enemyStart.y + maximumRange;
 	}
 
 	void chasePlayer()
 	{
 		Debug.Log ("Entered chaseplayer()");
-		if (distance < 3 && !seeWall() && seePlayer ())
+		if (distance < 3 && (!seeWall() && seePlayer () || seeWall () && seePlayer() && playerDistance < wallDistance))
 		{
 			this.GetComponent<Rigidbody2D> ().velocity = zeroVelocity;
+			playerHealth.TakeDamage(2);
+			print (playerHealth.currentHealth);
 		}
-		else if (!seeWall() && seePlayer ())
+		else if (!seeWall() && seePlayer () || seeWall () && seePlayer() && playerDistance < wallDistance)
 		{
 				this.GetComponent<Rigidbody2D> ().velocity = playerDirection.normalized * speed;
 				waitTime = 3;
@@ -118,13 +152,19 @@ public class EnemyAI : MonoBehaviour {
 
 	bool seeWall()
 	{
+		wallDistance = Physics2D.Raycast (transform.position, playerDirection, maxRaycast, wall).distance;
 		return Physics2D.Raycast (transform.position, playerDirection, maxRaycast, wall);
 	}
 	bool seePlayer()
 	{
-		print ("i saw player");
+		playerDistance = Physics2D.Raycast (transform.position, playerDirection, maxRaycast, playerLayer).distance;
 		return Physics2D.Raycast (transform.position, playerDirection, maxRaycast, playerLayer);
 
+	}
+
+	bool patrolSeeWall(Vector2 enemyDirection)
+	{
+		return Physics2D.Raycast (transform.position, enemyDirection, patrolRaycast, wall);
 	}
 
 	void enemyWait()
@@ -138,6 +178,7 @@ public class EnemyAI : MonoBehaviour {
 		{
 			print ("enter patrol");
 			patrolling = true;
+			newPatrolStartPoint();	// Do we want to create a new roaming boundary every time we enter patrol??
 			waitTime = 3;
 		}
 	}

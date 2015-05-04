@@ -38,7 +38,7 @@ public class EnemyController : MonoBehaviour {
 	}
 	
 	
-	public void TakeDamage (int amount, Vector3 hitPoint)
+	public void TakeDamage (int amount)		// Add in Vector2 hitPoint parameter for hit particle animations later.
 	{
 		// If the enemy is dead...
 		if(isDead)
@@ -99,6 +99,10 @@ public class EnemyController : MonoBehaviour {
 		
 		// Increase the score by the enemy's score value.
 		//ScoreManager.score += scoreValue;
+
+	}
+	public void EnemyAttack()
+	{
 
 	}
 }

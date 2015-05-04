@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
 	int floorMask;
 	float camRayLength = 100f;
 	int floorLevel;
+	public int startingHealth = 100;
+	public int currentHealth;
+	bool isDead;
 	
 	void Awake()
 	{
@@ -19,6 +22,7 @@ public class PlayerController : MonoBehaviour
 		anim = GetComponent<Animator> ();
 		playerRigidbody2D = GetComponent<Rigidbody2D> ();
 		playerBoxCollider2D = GetComponent<BoxCollider2D> ();
+		currentHealth = startingHealth;
 	}
 	
 	void FixedUpdate()
@@ -47,6 +51,34 @@ public class PlayerController : MonoBehaviour
 
 		Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		transform.rotation = Quaternion.LookRotation(Vector3.forward, mousePos - transform.position);
+	}
+
+	public void TakeDamage (int amount)		// Add in Vector2 hitPoint parameter for hit particle animations later.
+	{
+		// If the enemy is dead...
+		if(isDead)
+			// ... no need to take damage so exit the function.
+			return;
+		
+		// Play the hurt sound effect.
+		//enemyAudio.Play ();
+		
+		// Reduce the current health by the amount of damage sustained.
+		currentHealth -= amount;
+		
+		// Set the position of the particle system to where the hit was sustained.
+		//hitParticles.transform.position = hitPoint;
+		
+		// And play the particles.
+		//hitParticles.Play();
+		
+		// If the current health is less than or equal to zero...
+		if(currentHealth <= 0)
+		{
+			// ... the enemy is dead.
+			//Death ();
+			print ("Player is dead.");
+		}
 	}
 
 	void OnTriggerEnter2D(Collider2D other)

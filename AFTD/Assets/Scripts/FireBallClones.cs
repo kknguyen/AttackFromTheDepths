@@ -34,7 +34,7 @@ public class FireBallClones : MonoBehaviour {
 			if (enemyHealth.currentHealth > 0)
 				Destroy (this.gameObject);
 
-			enemyHealth.currentHealth--;
+			enemyHealth.TakeDamage (1);
 			Debug.Log (enemyHealth.currentHealth);
 
 		}
