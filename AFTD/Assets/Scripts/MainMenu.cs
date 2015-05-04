@@ -7,32 +7,37 @@ public class MainMenu : MonoBehaviour
 	private bool isGameMenu = false;
 	private bool isOptionsMenu = false;
 
-	void Start ()
+	void Awake()
+	{
+
+	}
+
+	void Start()
 	{
 
 	}
 
 	// Update is called once per frame
-	void Update ()
+	void Update()
 	{
 
 	}
 
-	void OnGUI ()
+	void OnGUI()
 	{
 		FirstMenu();
 		LoadGameMenu();
 		OptionsMenu();
 	}
 
-	void FirstMenu ()
+	void FirstMenu()
 	{
 		if (isFirstMenu)
 		{
 			// Change text to content when assets are created
 			if (GUI.Button(new Rect(Screen.width/2-100,Screen.height/2-100, 200, 50), "Play"))
 			{
-				Application.LoadLevel ("LevelOneTest");
+				Application.LoadLevel("LevelOneTest");
 			}
 
 			// Change text to content when assets are created
@@ -44,7 +49,7 @@ public class MainMenu : MonoBehaviour
 			// Change text to content when assets are created
 			if (GUI.Button(new Rect(Screen.width/2-100,Screen.height/2+50, 200, 50), "Quit"))
 			{
-				Application.Quit ();
+				Application.Quit();
 			}
 		}
 	}

@@ -62,7 +62,7 @@ public class EnemyAI : MonoBehaviour
 	void Update()
 	{
 		playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
-		distance = Vector2.Distance (playerPosition, transform.position);
+		distance = Vector2.Distance(playerPosition, transform.position);
 		float xDifChase = playerPosition.x - transform.position.x;
 		float yDifChase = playerPosition.y - transform.position.y;
 		playerDirection = new Vector2(xDifChase, yDifChase);
@@ -82,7 +82,7 @@ public class EnemyAI : MonoBehaviour
 		}
 	}
 
-	void ChasePlayer ()
+	void ChasePlayer()
 	{
 		if (distance < 3 && ChaseCondition())
 		{
@@ -136,8 +136,8 @@ public class EnemyAI : MonoBehaviour
 
 	void NewPatrolDirection()
 	{
-		float xDifPatrol = Random.Range (minX,maxX) - transform.position.x;
-		float yDifPatrol = Random.Range (minY,maxY) - transform.position.y;
+		float xDifPatrol = Random.Range(minX, maxX) - transform.position.x;
+		float yDifPatrol = Random.Range(minY, maxY) - transform.position.y;
 		patrolDirection = new Vector2(xDifPatrol, yDifPatrol);
 	}
 
@@ -168,12 +168,12 @@ public class EnemyAI : MonoBehaviour
 	bool SeePlayer()
 	{
 		playerDistance = Physics2D.Raycast (transform.position, playerDirection, maxRaycast, playerLayer).distance;
-		return Physics2D.Raycast (transform.position, playerDirection, maxRaycast, playerLayer);
+		return Physics2D.Raycast(transform.position, playerDirection, maxRaycast, playerLayer);
 	}
 
 	bool PatrolSeeWall(Vector2 enemyDirection)
 	{
-		return Physics2D.Raycast (transform.position, enemyDirection, patrolRaycast, wallLayer);
+		return Physics2D.Raycast(transform.position, enemyDirection, patrolRaycast, wallLayer);
 	}
 
 	void OnCollisionEnter2D(Collision2D playerHit)

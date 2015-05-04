@@ -7,12 +7,12 @@ public class PlayerAbilities : MonoBehaviour
 	public float projectileSpeed = 10f;
 	public Rigidbody2D abilityPrefab;
 
-	void awake()
+	void Awake()
 	{
 
 	}
 
-	void start()
+	void Start()
 	{
 
 	}
@@ -22,11 +22,11 @@ public class PlayerAbilities : MonoBehaviour
 	{
 		if (Input.GetMouseButton(0))
 		{
-			cast ();
+			Cast();
 		}
 	}
 
-	void cast() 
+	void Cast() 
 	{
 		aP.Stop();
 		aP.Play();
