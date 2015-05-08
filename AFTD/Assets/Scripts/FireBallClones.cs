@@ -4,7 +4,7 @@ using System.Collections;
 public class FireBallClones : MonoBehaviour
 {
 	private float destroyTime;
-	private int abilitySpeed = 15;
+	private int abilitySpeed = 10;
 
 	void Awake()
 	{
@@ -33,9 +33,10 @@ public class FireBallClones : MonoBehaviour
 		{
 			EnemyController enemyHealth = collis.GetComponent<EnemyController>();
 			if (enemyHealth.currentHealth > 0)
+			{
 				Destroy (this.gameObject);
-			enemyHealth.TakeDamage (1);
-			Debug.Log (enemyHealth.currentHealth);
+				enemyHealth.TakeDamage (1);
+			}
 		}
 	}
 }

@@ -4,7 +4,6 @@ using System.Collections;
 public class PlayerAbilities : MonoBehaviour 
 {
 	public ParticleSystem aP;
-	public float projectileSpeed = 10f;
 	public Rigidbody2D abilityPrefab;
 
 	void Awake()
@@ -31,6 +30,5 @@ public class PlayerAbilities : MonoBehaviour
 		aP.Stop();
 		aP.Play();
 		Rigidbody2D bPrefab = Instantiate(abilityPrefab, transform.position, Quaternion.identity) as Rigidbody2D;
-		bPrefab.GetComponent<Rigidbody2D>().velocity = gameObject.transform.up * 10;
 	}
 }

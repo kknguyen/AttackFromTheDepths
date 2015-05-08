@@ -1,32 +1,31 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyController : MonoBehaviour
+public abstract class EnemyController : MonoBehaviour
 {
 	public int startingHealth = 100;            // The amount of health the enemy starts the game with.
 	public int currentHealth;                   // The current health the enemy has.
-	public float sinkSpeed = 2.5f;              // The speed at which the enemy sinks through the floor when dead.
+	public int attackDamage = 5;
 	public int scoreValue = 10;                 // The amount added to the player's score when the enemy dies.
 	public AudioClip deathClip;                 // The sound to play when the enemy dies.
 
-	private Animator anim;                      // Reference to the animator.
-	private AudioSource enemyAudio;             // Reference to the audio source.
-	private ParticleSystem hitParticles;        // Reference to the particle system that plays when the enemy is damaged.
+	protected Animator anim;                    // Reference to the animator.
+	protected AudioSource enemyAudio;           // Reference to the audio source.
+	protected ParticleSystem hitParticles;      // Reference to the particle system that plays when the enemy is damaged.
 
-	private BoxCollider2D boxCollider;          // Reference to the box collider.
+	protected BoxCollider2D boxCollider;        // Reference to the box collider.
 
-	private bool isDead;                        // Whether the enemy is dead.
-	private bool isSinking;                     // Whether the enemy has started sinking through the floor.
+	protected bool isDead;                      // Whether the enemy is dead.
 
 	// Initialize variables
-	void Awake()
+	protected virtual void Awake()
 	{
 		// Stting the current health when the enemy first spawns.
 		currentHealth = startingHealth;
 	}
 
 	// Set up object references
-	void Start()
+	protected virtual void Start()
 	{
 //		anim = GetComponent <Animator> ();
 //		enemyAudio = GetComponent <AudioSource> ();
@@ -34,10 +33,9 @@ public class EnemyController : MonoBehaviour
 		boxCollider = GetComponent <BoxCollider2D> ();
 	}
 
-	void Update()
+	protected virtual void Update()
 	{
-		if (currentHealth <= 0 && !isDead )
-			Death();
+
 	}
 
 	public void TakeDamage(int amount)		// Add in Vector2 hitPoint parameter for hit particle animations later.
@@ -52,6 +50,7 @@ public class EnemyController : MonoBehaviour
 
 		// Reduce the current health by the amount of damage sustained.
 		currentHealth -= amount;
+		Debug.Log(currentHealth);
 
 		// Set the position of the particle system to where the hit was sustained.
 		//hitParticles.transform.position = hitPoint;
@@ -98,8 +97,5 @@ public class EnemyController : MonoBehaviour
 		// ScoreManager.score += scoreValue;
 	}
 
-	public void EnemyAttack()
-	{
-
-	}
+	public abstract int EnemyAttack();
 }

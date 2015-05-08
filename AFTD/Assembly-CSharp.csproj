@@ -46,10 +46,16 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\ArcherAI.cs" />
+     <Compile Include="Assets\Scripts\ArcherAttack.cs" />
+     <Compile Include="Assets\Scripts\ArcherController.cs" />
+     <Compile Include="Assets\Scripts\ArrowClones.cs" />
      <Compile Include="Assets\Scripts\CameraFollow.cs" />
      <Compile Include="Assets\Scripts\EnemyAI.cs" />
      <Compile Include="Assets\Scripts\EnemyController.cs" />
      <Compile Include="Assets\Scripts\FireBallClones.cs" />
+     <Compile Include="Assets\Scripts\KnightAI.cs" />
+     <Compile Include="Assets\Scripts\KnightController.cs" />
      <Compile Include="Assets\Scripts\MainMenu.cs" />
      <Compile Include="Assets\Scripts\PlayerAbilities.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />

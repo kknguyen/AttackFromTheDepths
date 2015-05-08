@@ -69,6 +69,7 @@ public class PlayerController : MonoBehaviour
 
 		// Reduce the current health by the amount of damage sustained.
 		currentHealth -= amount;
+		print(amount);
 
 		// Set the position of the particle system to where the hit was sustained.
 		// HitParticles.transform.position = hitPoint;
