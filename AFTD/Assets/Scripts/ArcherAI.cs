@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ArcherAI : EnemyAI {
-
-
+public class ArcherAI : EnemyAI
+{
+	
 	protected override void Awake()
 	{
 		speed = 2;

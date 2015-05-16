@@ -23,7 +23,7 @@ public class ArcherAttack : MonoBehaviour
 
 	void ShootArrow()
 	{
-		Rigidbody2D bPrefab = Instantiate(arrowPrefab, transform.position, Quaternion.identity) as Rigidbody2D;
+		Rigidbody2D anArrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity) as Rigidbody2D;
 		theArcher.isAttacking = false;
 	}
 }

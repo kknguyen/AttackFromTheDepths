@@ -5,8 +5,7 @@ public class PlayerController : MonoBehaviour
 {
 	public int startingHealth = 100;
 	public int currentHealth;
-
-	private float moveSpeed = 6f;
+	
 	private Vector3 movement;
 	private Animator anim;
 	private Rigidbody2D playerRigidbody2D;
@@ -15,6 +14,9 @@ public class PlayerController : MonoBehaviour
 	private float camRayLength = 100f;
 	private int floorLevel;
 	private bool isDead;
+
+	private float moveSpeed = 6f;
+	private float attackDamage = 1f;
 
 	void Awake()
 	{
@@ -85,6 +87,39 @@ public class PlayerController : MonoBehaviour
 			print ("player is dead.");
 		}
 	}
+
+	public void ProcessPowerUp(string powerUp)
+	{
+		switch (powerUp) 
+		{
+		case "speedPowerUp":
+			moveSpeed += 2f;
+			print (moveSpeed + " Our movespeed.");
+			Invoke ("ReduceSpeed", 5); 
+			break;
+		case "attackPowerUp":
+			attackDamage += 2f;
+			print (attackDamage + " Our attackDamage.");
+			Invoke ("ReduceAttack", 5);
+			break;
+		case "healthPowerUp":
+			currentHealth += 20;
+			break;
+		}
+	}
+	
+	void ReduceSpeed()
+	{
+		moveSpeed -= 2f;
+		print (moveSpeed + " Our movespeed.");
+	}
+	
+	void ReduceAttack()
+	{
+		attackDamage -= 2f;
+		print (attackDamage + " Our attackDamage.");
+	}
+
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
