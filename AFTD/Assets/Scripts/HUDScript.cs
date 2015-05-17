@@ -35,8 +35,8 @@ public class HUDScript : MonoBehaviour
 		}
 		if (thePlayerController.moveSpeedPower)
 		{
-			RectTransform test = Instantiate(moveSpeedPowerPrefab, powerUpPanel.transform.position, Quaternion.identity) as RectTransform;
-			test.transform.SetParent (this.transform, true);
+			RectTransform test = Instantiate(moveSpeedPowerPrefab, transform.position, Quaternion.identity) as RectTransform;
+			test.transform.SetParent (powerUpPanel.transform, true);
 			print ("movespeed");
 		}
 
