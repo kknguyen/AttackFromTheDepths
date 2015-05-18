@@ -5,26 +5,29 @@ public class PlayerAbilities : MonoBehaviour
 {
 	public ParticleSystem aP;
 	public Rigidbody2D abilityPrefab;
-
+	
+	private bool isPaused;
+	
 	void Awake()
 	{
-
+		
 	}
-
+	
 	void Start()
 	{
-
+		
 	}
-
+	
 	// Update is called once per frame
 	void Update () 
 	{
-		if (Input.GetMouseButton(0))
+		isPaused = GameObject.FindGameObjectWithTag("HUD").GetComponent<Pause>().paused;
+		if (Input.GetMouseButton(0) && !isPaused)
 		{
 			Cast();
 		}
 	}
-
+	
 	void Cast() 
 	{
 		aP.Stop();

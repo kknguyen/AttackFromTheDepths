@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\KnightAI.cs" />
      <Compile Include="Assets\Scripts\KnightController.cs" />
      <Compile Include="Assets\Scripts\MainMenu.cs" />
+     <Compile Include="Assets\Scripts\Pause.cs" />
      <Compile Include="Assets\Scripts\PlayerAbilities.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\SpeedPowerup.cs" />
@@ -68,6 +69,8 @@
      <Compile Include="Assets\Scripts\WarlockController.cs" />
      <Compile Include="Assets\Scripts\WarlockSpell1.cs" />
      <Compile Include="Assets\Scripts\WarlockSpell2.cs" />
+     <Compile Include="Assets\Scripts\attackDamageUIScript.cs" />
+     <Compile Include="Assets\Scripts\moveSpeedUIScript.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>X:/Programs/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

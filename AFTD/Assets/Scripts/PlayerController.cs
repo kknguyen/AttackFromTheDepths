@@ -16,9 +16,9 @@ public class PlayerController : MonoBehaviour
 	private bool isDead;
 
 	private float moveSpeed = 6f;
-	public bool moveSpeedPower = false;
+	public int moveSpeedCount = 0;
 	private float attackDamage = 1f;
-	public bool attackDamagePower = false;
+	public int attackDamageCount = 0;
 
 
 	void Awake()
@@ -107,13 +107,13 @@ public class PlayerController : MonoBehaviour
 			case "speedPowerUp":
 				moveSpeed += 2f;
 				print (moveSpeed + " Our movespeed.");
-				moveSpeedPower = true;
+				moveSpeedCount += 1;
 				Invoke ("ReduceSpeed", 5); 
 				break;
 			case "attackPowerUp":
 				attackDamage += 2f;
 				print (attackDamage + " Our attackDamage.");
-				attackDamagePower = true;
+				attackDamageCount += 1;
 				Invoke ("ReduceAttack", 5);
 				break;
 			case "healthPowerUp":
@@ -125,14 +125,14 @@ public class PlayerController : MonoBehaviour
 	void ReduceSpeed()
 	{
 		moveSpeed -= 2f;
-		moveSpeedPower = false;
+		moveSpeedCount -= 1;
 		print (moveSpeed + " Our movespeed.");
 	}
 
 	void ReduceAttack()
 	{
 		attackDamage -= 2f;
-		attackDamagePower = false;
+		attackDamageCount -= 1;
 		print (attackDamage + " Our attackDamage.");
 	}
 
