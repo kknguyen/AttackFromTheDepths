@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
 	private int floorMask;
 	private float camRayLength = 100f;
 	private int floorLevel;
-	private bool isDead;
+	public bool isDead;
 
 	private float moveSpeed = 6f;
 	public int moveSpeedCount = 0;
@@ -74,7 +74,8 @@ public class PlayerController : MonoBehaviour
 
 		// Reduce the current health by the amount of damage sustained.
 		currentHealth -= amount;
-		print(amount);
+		if (currentHealth < 0)
+			currentHealth = 0;
 
 		// Set the position of the particle system to where the hit was sustained.
 		// HitParticles.transform.position = hitPoint;
@@ -86,9 +87,15 @@ public class PlayerController : MonoBehaviour
 		if (currentHealth <= 0)
 		{
 			// The enemy is dead.
-			//Death ();
+			OnDeath();
 			print ("player is dead.");
 		}
+	}
+
+	void OnDeath()
+	{
+		Time.timeScale = 0f;
+		isDead = true;
 	}
 
 	void OnTriggerEnter2D(Collider2D other)

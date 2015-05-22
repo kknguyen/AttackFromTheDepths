@@ -54,11 +54,14 @@
      <Compile Include="Assets\Scripts\CameraFollow.cs" />
      <Compile Include="Assets\Scripts\EnemyAI.cs" />
      <Compile Include="Assets\Scripts\EnemyController.cs" />
+     <Compile Include="Assets\Scripts\EnemyPooler.cs" />
      <Compile Include="Assets\Scripts\FireBallClones.cs" />
      <Compile Include="Assets\Scripts\HUDScript.cs" />
      <Compile Include="Assets\Scripts\HealthPowerUp.cs" />
      <Compile Include="Assets\Scripts\KnightAI.cs" />
      <Compile Include="Assets\Scripts\KnightController.cs" />
+     <Compile Include="Assets\Scripts\LevelManager.cs" />
+     <Compile Include="Assets\Scripts\LevelOneManager.cs" />
      <Compile Include="Assets\Scripts\MainMenu.cs" />
      <Compile Include="Assets\Scripts\Pause.cs" />
      <Compile Include="Assets\Scripts\PlayerAbilities.cs" />

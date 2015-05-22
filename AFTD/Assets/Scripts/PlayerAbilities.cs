@@ -21,8 +21,8 @@ public class PlayerAbilities : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		isPaused = GameObject.FindGameObjectWithTag("HUD").GetComponent<Pause>().paused;
-		if (Input.GetMouseButton(0) && !isPaused)
+		//isPaused = GameObject.FindGameObjectWithTag("HUD").GetComponent<Pause>().paused;
+		if (Input.GetMouseButton(0) && Time.timeScale == 1)
 		{
 			Cast();
 		}

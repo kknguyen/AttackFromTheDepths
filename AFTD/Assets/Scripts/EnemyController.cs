@@ -82,6 +82,7 @@ public abstract class EnemyController : MonoBehaviour
 		//enemyAudio.Play ();
 
 		Debug.Log("enemy died");
+		dropItem();
 		// After 2 seconds destory the enemy.
 	}
 
@@ -98,4 +99,9 @@ public abstract class EnemyController : MonoBehaviour
 	}
 
 	public abstract int EnemyAttack();
+
+	protected virtual void dropItem()
+	{
+		print(Random.Range (1, 3) + " hello");
+	}
 }
