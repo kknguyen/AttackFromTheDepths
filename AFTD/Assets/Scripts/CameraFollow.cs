@@ -11,6 +11,7 @@ public class CameraFollow : MonoBehaviour
 	{
 		// Calculate the initial offset.
 		offset = transform.position - target.position;
+		print (this.GetComponent <Camera>().orthographicSize);
 	}
 	
 	void FixedUpdate()

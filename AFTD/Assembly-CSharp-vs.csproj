@@ -66,6 +66,7 @@
      <Compile Include="Assets\Scripts\Pause.cs" />
      <Compile Include="Assets\Scripts\PlayerAbilities.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\PowerUpPooler.cs" />
      <Compile Include="Assets\Scripts\SpeedPowerup.cs" />
      <Compile Include="Assets\Scripts\WarlockAI.cs" />
      <Compile Include="Assets\Scripts\WarlockAttack.cs" />
