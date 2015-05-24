@@ -4,8 +4,8 @@ using System.Collections;
 public abstract class EnemyAI : MonoBehaviour
 {
 	protected Transform player;               	// Reference to the player's position.
-	protected PlayerController playerHealth;      // Reference to the player's health.
-	protected EnemyController enemyHealth;        // Reference to this enemy's health.
+	protected PlayerController playerHealth;    // Reference to the player's health.
+	protected EnemyController enemyHealth;      // Reference to this enemy's health.
 	protected float attackCooldown;
 	protected float defaultCooldown = 1;
 	
@@ -13,25 +13,25 @@ public abstract class EnemyAI : MonoBehaviour
 	// Enemy pathfinding
 	protected bool patrolling;					// Is the enemy patrolling?
 	protected float speed;						// Speed of the enemy
-	protected float waitTime;						// How long does the enemy wait before patrolling
-	protected float distance;						// Distance from the enemy to the player
-	protected float wallDistance;					// Distance of the hit Raycast to wall
+	protected float waitTime;					// How long does the enemy wait before patrolling
+	protected float distance;					// Distance from the enemy to the player
+	protected float wallDistance;				// Distance of the hit Raycast to wall
 	protected float playerDistance;				// Distance of the hit Raycast to player
 
 	// Raycast values
-	protected int wallLayer;						// Layer mask for the wall objects
+	protected int wallLayer;					// Layer mask for the wall objects
 	protected int playerLayer;					// Layer mask for player
-	protected int maxRaycast;						// Maximum Raycast distance for chasing
+	protected int maxRaycast;					// Maximum Raycast distance for chasing
 	protected float patrolRaycast;				// Maximum Raycast distance patrolling (wall collision)
 
 	// Direction vectors for enemy movement
 	protected Vector2 zeroVelocity;				// Velocity vector to stop enemy movement
 	protected Vector2 patrolDirection;			// The direction that the enemy will patrol towards.
 	protected Vector2 playerDirection;			// Player direction relative to the enemy
-	protected Vector3 playerPosition;				// Player position in environment
+	protected Vector3 playerPosition;			// Player position in environment
 
 	// Boundary set for enemy roam/patrolling
-	protected Vector3 enemyStart;					// Location of enemy position when patrol state starts
+	protected Vector3 enemyStart;				// Location of enemy position when patrol state starts
 	protected int maximumRange;					// Max units the enemy can move from its starting point.
 	protected float minX;
 	protected float maxX;
@@ -89,7 +89,6 @@ public abstract class EnemyAI : MonoBehaviour
 
 	protected virtual void ChasePlayer()
 	{
-		print ("ARCHER IS not CHASING");
 		if (distance < 3 && ChaseCondition())
 		{
 			StopMoving();

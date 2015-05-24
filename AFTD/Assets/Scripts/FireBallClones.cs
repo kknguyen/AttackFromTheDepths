@@ -34,6 +34,8 @@ public class FireBallClones : MonoBehaviour
 			EnemyController enemyHealth = collis.GetComponent<EnemyController>();
 			if (enemyHealth.currentHealth > 0)
 			{
+				collis.transform.GetChild(0).gameObject.SetActive (true);
+
 				Destroy (this.gameObject);
 				enemyHealth.TakeDamage (1);
 			}

@@ -54,8 +54,10 @@
      <Compile Include="Assets\Scripts\CameraFollow.cs" />
      <Compile Include="Assets\Scripts\EnemyAI.cs" />
      <Compile Include="Assets\Scripts\EnemyController.cs" />
+     <Compile Include="Assets\Scripts\EnemyHP.cs" />
      <Compile Include="Assets\Scripts\EnemyPooler.cs" />
      <Compile Include="Assets\Scripts\FireBallClones.cs" />
+     <Compile Include="Assets\Scripts\FireCone.cs" />
      <Compile Include="Assets\Scripts\HUDScript.cs" />
      <Compile Include="Assets\Scripts\HealthPowerUp.cs" />
      <Compile Include="Assets\Scripts\KnightAI.cs" />

@@ -30,7 +30,6 @@ public class WarlockSpell2 : MonoBehaviour
 			{
 				Destroy (this.gameObject);
 				playerHealth.TakeDamage (20);
-				print(playerHealth.currentHealth);
 			}
 		}
 	}

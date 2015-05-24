@@ -7,14 +7,14 @@ public class ArcherController : EnemyController
 
 	protected override void Awake()
 	{
-		currentHealth = 50;
+		startingHealth = 50;
+		currentHealth = startingHealth;
 	}
 
 
 	public override int EnemyAttack()
 	{
 		isAttacking = true;
-		print ("archer shoot arrow pls");
 		return attackDamage;
 	}
 }

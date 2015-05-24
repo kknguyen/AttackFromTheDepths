@@ -7,14 +7,14 @@ public class WarlockController : EnemyController
 	
 	protected override void Awake()
 	{
-		currentHealth = 120;
+		startingHealth = 120;
+		currentHealth = startingHealth;
 	}
 	
 	
 	public override int EnemyAttack()
 	{
 		isAttacking = true;
-		print ("mage attack");
 		return attackDamage;
 	}
 }

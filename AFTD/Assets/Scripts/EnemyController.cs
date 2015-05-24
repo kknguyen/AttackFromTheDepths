@@ -16,6 +16,7 @@ public abstract class EnemyController : MonoBehaviour
 	protected BoxCollider2D boxCollider;        // Reference to the box collider.
 
 	protected bool isDead;                      // Whether the enemy is dead.
+	public bool wasHit = false;
 
 	// Initialize variables
 	protected virtual void Awake()
@@ -50,7 +51,6 @@ public abstract class EnemyController : MonoBehaviour
 
 		// Reduce the current health by the amount of damage sustained.
 		currentHealth -= amount;
-		Debug.Log(currentHealth);
 
 		// Set the position of the particle system to where the hit was sustained.
 		//hitParticles.transform.position = hitPoint;
@@ -81,7 +81,6 @@ public abstract class EnemyController : MonoBehaviour
 		//enemyAudio.clip = deathClip;
 		//enemyAudio.Play ();
 
-		Debug.Log("enemy died");
 		dropItem();
 		// After 2 seconds destory the enemy.
 	}

@@ -22,7 +22,6 @@ public class ArcherAI : EnemyAI
 	protected override void ChasePlayer()
 	{
 
-		print ("ARCHER IS CHASING");
 		if (distance < 10 && ChaseCondition())
 		{
 			StopMoving();

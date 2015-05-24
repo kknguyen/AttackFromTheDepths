@@ -6,7 +6,8 @@ public class KnightController : EnemyController
 
 	protected override void Awake()
 	{
-		currentHealth = 150;
+		startingHealth = 150;
+		currentHealth = startingHealth;
 		attackDamage = 10;
 	}
 
