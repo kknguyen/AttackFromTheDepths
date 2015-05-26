@@ -28,7 +28,7 @@ public abstract class EnemyController : MonoBehaviour
 	// Set up object references
 	protected virtual void Start()
 	{
-//		anim = GetComponent <Animator> ();
+  		anim = this.gameObject.GetComponent<Animator>();
 //		enemyAudio = GetComponent <AudioSource> ();
 //		hitParticles = GetComponentInChildren <ParticleSystem> ();
 		boxCollider = GetComponent <BoxCollider2D> ();
@@ -70,17 +70,17 @@ public abstract class EnemyController : MonoBehaviour
 	{
 		// The enemy is dead.
 		isDead = true;
-
+		
 		// Turn the collider into a trigger so shots can pass through it.
 		boxCollider.isTrigger = true;
-
+		
 		// Tell the animator that the enemy is dead.
-		//anim.SetTrigger ("Dead");
-
+		anim.SetTrigger("Dead");
+		
 		// Change the audio clip of the audio source to the death clip and play it (this will stop the hurt clip playing).
 		//enemyAudio.clip = deathClip;
 		//enemyAudio.Play ();
-
+		
 		dropItem();
 		// After 2 seconds destory the enemy.
 	}

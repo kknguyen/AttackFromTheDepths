@@ -37,7 +37,7 @@ public class FireBallClones : MonoBehaviour
 				collis.transform.GetChild(0).gameObject.SetActive (true);
 
 				Destroy (this.gameObject);
-				enemyHealth.TakeDamage (1);
+				enemyHealth.TakeDamage (100); //Changed to 100 for testing purposes.
 			}
 		}
 	}
