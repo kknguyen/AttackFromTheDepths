@@ -27,10 +27,10 @@ public class FireCone : MonoBehaviour
 			targetPosition.z = 0;
 			if (enemyHealth.currentHealth > 0)
 			{
-				GameObject.FindGameObjectWithTag("healthBarEnemy").SetActive(true);
+				collis.transform.GetChild(0).gameObject.SetActive (true);
 				print ("hit with cone");
 				collis.transform.Translate(targetPosition.normalized*4);
-				enemyHealth.TakeDamage (1);
+				enemyHealth.TakeDamage (25);
 			}
 		}
 	}

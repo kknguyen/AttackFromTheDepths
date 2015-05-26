@@ -4,7 +4,7 @@ using System.Collections;
 public class FireBallClones : MonoBehaviour
 {
 	private float destroyTime;
-	private int abilitySpeed = 10;
+	private int abilitySpeed = 20;
 
 	void Awake()
 	{

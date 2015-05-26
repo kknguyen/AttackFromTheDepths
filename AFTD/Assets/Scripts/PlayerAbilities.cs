@@ -9,7 +9,16 @@ public class PlayerAbilities : MonoBehaviour
 	GameObject bPrefab2;
 	
 	private bool isPaused;
-	
+
+	public float attack1CD = 0.5f;
+	public float attack1Time = 0f;
+
+	public float attack2CD = 5f;
+	public float attack2Time = 0f;
+
+	public float attack3CD;
+	public float attack3Time = 0f;
+
 	void Awake()
 	{
 		
@@ -27,13 +36,17 @@ public class PlayerAbilities : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+		attack1Time -= Time.deltaTime;
+		attack2Time -= Time.deltaTime;
 		//isPaused = GameObject.FindGameObjectWithTag("HUD").GetComponent<Pause>().paused;
-		if (Input.GetMouseButton(0) && Time.timeScale == 1)
+		if (Input.GetMouseButton(0) && Time.timeScale == 1 && attack1Time <= 0)
 		{
+			attack1Time = attack1CD;
 			Cast();
 		}
-		if (Input.GetKey("r") && Time.timeScale == 1)
+		if (Input.GetKey("r") && Time.timeScale == 1 && attack2Time <= 0)
 		{
+			attack2Time = attack2CD;
 			Cast2();
 			Invoke("Cast2off", 1f);
 		}
