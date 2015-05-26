@@ -29,7 +29,7 @@ public abstract class EnemyController : MonoBehaviour
 	protected virtual void Start()
 	{
   		anim = this.gameObject.GetComponent<Animator>();
-//		enemyAudio = GetComponent <AudioSource> ();
+		enemyAudio = this.gameObject.GetComponent <AudioSource> ();
 //		hitParticles = GetComponentInChildren <ParticleSystem> ();
 		boxCollider = GetComponent <BoxCollider2D> ();
 	}
@@ -79,7 +79,7 @@ public abstract class EnemyController : MonoBehaviour
 		
 		// Change the audio clip of the audio source to the death clip and play it (this will stop the hurt clip playing).
 		//enemyAudio.clip = deathClip;
-		//enemyAudio.Play ();
+		enemyAudio.Play ();
 		
 		dropItem();
 		// After 2 seconds destory the enemy.
