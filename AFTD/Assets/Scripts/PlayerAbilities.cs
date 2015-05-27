@@ -26,7 +26,6 @@ public class PlayerAbilities : MonoBehaviour
 	
 	void Start()
 	{
-
 		bPrefab2 = Instantiate(ability2Prefab, transform.position, Quaternion.identity) as GameObject;
 		bPrefab2.transform.SetParent(GameObject.FindGameObjectWithTag("Player").transform);
 		bPrefab2.SetActive(false);
@@ -56,6 +55,7 @@ public class PlayerAbilities : MonoBehaviour
 	{
 		aP.Stop();
 		aP.Play();
+
 		Rigidbody2D bPrefab = Instantiate(abilityPrefab, transform.position, Quaternion.identity) as Rigidbody2D;
 	}
 

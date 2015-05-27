@@ -4,18 +4,31 @@ using System.Collections;
 public class FireBallClones : MonoBehaviour
 {
 	private float destroyTime;
+
+	//Timed animation value to show the fireball hitting something
+	// before getting destroyed/disappearing. Will need to be
+	// changed if the animation changes
+	private float destroyTimeHit;
 	private int abilitySpeed = 20;
+
+	private GameObject thePlayer;
+	private Animator anim;
 
 	void Awake()
 	{
 		destroyTime = 2;
+		destroyTimeHit = 0.75f;
 	}
 
 	void Start()
 	{
+		anim = this.gameObject.GetComponent<Animator>();
 		Destroy(this.gameObject, destroyTime);
-		GameObject thePlayer = GameObject.Find("Player1");
+		thePlayer = GameObject.Find("Player1");
 		this.GetComponent<Rigidbody2D>().velocity = thePlayer.transform.up * abilitySpeed;
+
+		//This rotates the fireball so it looks like it is shooting straight out of the dragon's mouth.
+		transform.rotation = Quaternion.LookRotation(Vector3.forward, transform.position - thePlayer.transform.position);
 	}
 
 	void Update()
@@ -27,7 +40,9 @@ public class FireBallClones : MonoBehaviour
 	{
 		if (collis.gameObject.tag == "wall")
 		{
-			Destroy (this.gameObject);
+			anim.SetTrigger("Hit");
+			this.GetComponent<Rigidbody2D>().velocity = thePlayer.transform.up * 0;
+			Destroy (this.gameObject, destroyTimeHit);
 		}
 		else if (collis.gameObject.tag == "enemy")
 		{
@@ -35,8 +50,9 @@ public class FireBallClones : MonoBehaviour
 			if (enemyHealth.currentHealth > 0)
 			{
 				collis.transform.GetChild(0).gameObject.SetActive (true);
-
-				Destroy (this.gameObject);
+				anim.SetTrigger("Hit");
+				this.GetComponent<Rigidbody2D>().velocity = thePlayer.transform.up * 0;
+				Destroy (this.gameObject, destroyTimeHit);
 				enemyHealth.TakeDamage (100); //Changed to 100 for testing purposes.
 			}
 		}
