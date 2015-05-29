@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
 		float v = Input.GetAxisRaw("Vertical");
 		Move(h, v);
 		Turning();
-		//Animating (h, v);
+		Animating (h, v);
 	}
 
 	void Move(float h, float v)
@@ -88,7 +88,6 @@ public class PlayerController : MonoBehaviour
 		{
 			// The enemy is dead.
 			OnDeath();
-			print ("player is dead.");
 		}
 	}
 
@@ -113,13 +112,11 @@ public class PlayerController : MonoBehaviour
 		{
 			case "speedPowerUp":
 				moveSpeed += 2f;
-				print (moveSpeed + " Our movespeed.");
 				moveSpeedCount += 1;
 				Invoke ("ReduceSpeed", 5); 
 				break;
 			case "attackPowerUp":
 				attackDamage += 2f;
-				print (attackDamage + " Our attackDamage.");
 				attackDamageCount += 1;
 				Invoke ("ReduceAttack", 5);
 				break;
@@ -133,19 +130,17 @@ public class PlayerController : MonoBehaviour
 	{
 		moveSpeed -= 2f;
 		moveSpeedCount -= 1;
-		print (moveSpeed + " Our movespeed.");
 	}
 
 	void ReduceAttack()
 	{
 		attackDamage -= 2f;
 		attackDamageCount -= 1;
-		print (attackDamage + " Our attackDamage.");
 	}
 
-//	void Animating(float h, float v)
-//	{
-//		bool walking = h != 0f || v != 0f;
-//		anim.SetBool ("IsWalking", walking);
-//	}
+	void Animating(float h, float v)
+	{
+		bool walking = h != 0f || v != 0f;
+		anim.SetBool ("isWalking", walking);
+	}
 }

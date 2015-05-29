@@ -8,14 +8,18 @@ public class MainMenu : MonoBehaviour
 	private bool isOptionsMenu = false;
 	private bool isSoundLevelsMenu = false;
 	private bool isKeyBindingsMenu = false;
+	private bool isClearDataMenu = false;
+	private bool isDataDeleted = false;
 	
 	private float masterVolumeValue = 100f;
 	private float musicVolumeValue = 100f;
 	private float soundEffectsVolumeValue = 100f;
+
+	GUIStyle centered;
 	
 	void Awake()
 	{
-		
+
 	}
 	
 	void Start()
@@ -36,6 +40,9 @@ public class MainMenu : MonoBehaviour
 		OptionsMenu();
 		SoundLevelsMenu();
 		KeyBindingsMenu();
+		ClearDataMenu();
+		DataDeleted();
+
 	}
 	
 	void FirstMenu()
@@ -86,12 +93,17 @@ public class MainMenu : MonoBehaviour
 				isKeyBindingsMenu = true;
 			}
 			
-			if(GUI.Button(new Rect(Screen.width/2-100,Screen.height/2+50, 200, 50), "Back"))
+			if(GUI.Button(new Rect(Screen.width/2-100,Screen.height/2+50, 200, 50), "Clear Data"))
+			{
+				isOptionsMenu = false;
+				isClearDataMenu = true;
+			}
+
+			if(GUI.Button(new Rect(Screen.width/2-100,Screen.height/2+125, 200, 50), "Back"))
 			{
 				isFirstMenu = true;
 				isOptionsMenu = false;
 			}
-			
 		}
 	}
 	
@@ -124,14 +136,48 @@ public class MainMenu : MonoBehaviour
 	{
 		if(isKeyBindingsMenu)
 		{
-			
-			
 			if(GUI.Button(new Rect(Screen.width/2-100,Screen.height/2+50, 200, 50), "Back"))
 			{
 				isOptionsMenu = true;
 				isKeyBindingsMenu = false;
 			}
-			
+		}
+	}
+
+	void ClearDataMenu()
+	{
+		if (isClearDataMenu)
+		{
+			if(GUI.Button(new Rect(Screen.width/2-250,Screen.height/2, 200, 50), "Yes"))
+			{
+				GameManager.manager.DeleteData();
+				Debug.Log("deleted data");
+
+				isClearDataMenu = false;
+				isDataDeleted = true;
+
+			}
+
+			if(GUI.Button(new Rect(Screen.width/2+50,Screen.height/2, 200, 50), "No"))
+			{
+				isOptionsMenu = true;
+				isClearDataMenu = false;
+			}
+			GUI.Label(new Rect(Screen.width/2-125,Screen.height/2-50, 250, 50), "Are you sure you want to clear your data?");
+		}
+	}
+
+	void DataDeleted()
+	{
+		if (isDataDeleted)
+		{
+			GUI.Label(new Rect(Screen.width/2-75, Screen.height/2, 150, 50), "User data deleted!");
+
+			if(GUI.Button(new Rect(Screen.width/2-100,Screen.height/2+50, 200, 50), "Back"))
+			{
+				isOptionsMenu = true;
+				isDataDeleted = false;
+			}
 		}
 	}
 }

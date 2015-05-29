@@ -141,7 +141,6 @@ public abstract class EnemyAI : MonoBehaviour
 				NewPatrolDirection();
 			}
 			this.GetComponent<Rigidbody2D>().velocity = patrolDirection.normalized * speed;
-			Debug.Log(this.GetComponent<Rigidbody2D>().velocity);
 		}
 	}
 

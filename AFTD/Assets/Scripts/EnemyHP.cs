@@ -33,7 +33,7 @@ public class EnemyHP : MonoBehaviour
 			healthBar.value = theEnemyController.currentHealth;
 			Invoke("HideHp", 3f);
 		}
-		if (theEnemyController.currentHealth == 0)
+		if (theEnemyController.isDead)
 		{
 			Destroy (this.gameObject);
 		}

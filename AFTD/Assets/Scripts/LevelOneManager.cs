@@ -29,39 +29,37 @@ public class LevelOneManager : LevelManager {
 
 	protected override void SpawnEnemies()
 	{
-		GameObject enemy = EnemyPooler.current.GetPooledObject();
-		
-		if (enemy == null) return;
-
-		int block = Random.Range(1, 4);
-		float x, y;
-		switch(block)
-		{
-		case 1:
-			x = Random.Range(-20f, 20f);
-			y = Random.Range(8f, 12f);
-			enemy.transform.position = new Vector3(playerObj.transform.position.x + x, playerObj.transform.position.y + y, 0);
-			break;
-		case 2:
-			x = Random.Range(16f, 20f);
-			y = Random.Range(-8f, 8f);
-			enemy.transform.position = new Vector3(playerObj.transform.position.x + x, playerObj.transform.position.y + y, 0);
-			break;
-		case 3:
-			x = Random.Range(-20f, 20f);
-			y = Random.Range(-12f, -8f);
-			enemy.transform.position = new Vector3(playerObj.transform.position.x + x, playerObj.transform.position.y + y, 0);
-			break;
-		case 4:
-			x = Random.Range(-20f, -16f);
-			y = Random.Range(-8f, 8f);
-			enemy.transform.position = new Vector3(playerObj.transform.position.x + x, playerObj.transform.position.y + y, 0);
-			break;
-		}
-
-
-		enemy.transform.rotation = new Quaternion();
-		enemy.SetActive(true);
+//		GameObject enemy = EnemyPooler.current.GetPooledObject();
+//		
+//		if (enemy == null) return;
+//
+//		int block = Random.Range(1, 4);
+//		float x, y;
+//		switch(block)
+//		{
+//		case 1:
+//			x = Random.Range(-20f, 20f);
+//			y = Random.Range(8f, 12f);
+//			enemy.transform.position = new Vector3(playerObj.transform.position.x + x, playerObj.transform.position.y + y, 0);
+//			break;
+//		case 2:
+//			x = Random.Range(16f, 20f);
+//			y = Random.Range(-8f, 8f);
+//			enemy.transform.position = new Vector3(playerObj.transform.position.x + x, playerObj.transform.position.y + y, 0);
+//			break;
+//		case 3:
+//			x = Random.Range(-20f, 20f);
+//			y = Random.Range(-12f, -8f);
+//			enemy.transform.position = new Vector3(playerObj.transform.position.x + x, playerObj.transform.position.y + y, 0);
+//			break;
+//		case 4:
+//			x = Random.Range(-20f, -16f);
+//			y = Random.Range(-8f, 8f);
+//			enemy.transform.position = new Vector3(playerObj.transform.position.x + x, playerObj.transform.position.y + y, 0);
+//			break;
+//		}
+//		enemy.transform.rotation = new Quaternion();
+//		enemy.SetActive(true);
 	}
 	
 	protected override void StartBoss()

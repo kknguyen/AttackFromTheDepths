@@ -7,6 +7,8 @@ public class PlayerAbilities : MonoBehaviour
 	public Rigidbody2D abilityPrefab;
 	public GameObject ability2Prefab;
 	GameObject bPrefab2;
+
+	public Animator anim;
 	
 	private bool isPaused;
 
@@ -40,11 +42,15 @@ public class PlayerAbilities : MonoBehaviour
 		//isPaused = GameObject.FindGameObjectWithTag("HUD").GetComponent<Pause>().paused;
 		if (Input.GetMouseButton(0) && Time.timeScale == 1 && attack1Time <= 0)
 		{
+			//anim.SetBool ("isWalking", false);
+			anim.SetTrigger ("fireball");
 			attack1Time = attack1CD;
 			Cast();
 		}
 		if (Input.GetKey("r") && Time.timeScale == 1 && attack2Time <= 0)
 		{
+			//anim.SetBool ("isWalking", false);
+			anim.SetTrigger ("flamethrow");
 			attack2Time = attack2CD;
 			Cast2();
 			Invoke("Cast2off", 1f);

@@ -15,7 +15,7 @@ public abstract class EnemyController : MonoBehaviour
 
 	protected BoxCollider2D boxCollider;        // Reference to the box collider.
 
-	protected bool isDead;                      // Whether the enemy is dead.
+	public bool isDead;                      // Whether the enemy is dead.
 	public bool wasHit = false;
 
 	// Initialize variables
