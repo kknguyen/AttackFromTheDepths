@@ -7,12 +7,14 @@ public abstract class EnemyController : MonoBehaviour
 	public int currentHealth;                   // The current health the enemy has.
 	public int attackDamage = 5;
 	public int scoreValue = 10;                 // The amount added to the player's score when the enemy dies.
+	public float deadTime = 5;					// Time in seconds that the splatter sprite stays on screen before it disappears.
+
 	public AudioClip deathClip;                 // The sound to play when the enemy dies.
 
 	protected Animator anim;                    // Reference to the animator.
 	protected AudioSource enemyAudio;           // Reference to the audio source.
 	protected ParticleSystem hitParticles;      // Reference to the particle system that plays when the enemy is damaged.
-
+	protected ItemHandler itemHandler;			// Reference to the ItemHandler to handle dropping items when an enemy dies.
 	protected BoxCollider2D boxCollider;        // Reference to the box collider.
 
 	public bool isDead;                      // Whether the enemy is dead.
@@ -32,11 +34,20 @@ public abstract class EnemyController : MonoBehaviour
 		enemyAudio = this.gameObject.GetComponent <AudioSource> ();
 //		hitParticles = GetComponentInChildren <ParticleSystem> ();
 		boxCollider = GetComponent <BoxCollider2D> ();
+		itemHandler = GameObject.FindGameObjectWithTag ("itemHandler").GetComponent<ItemHandler>();
+
 	}
 
 	protected virtual void Update()
 	{
-
+		if(isDead)
+		{
+			deadTime -= Time.deltaTime;
+			if(deadTime <= 0)
+			{
+				this.gameObject.SetActive(false);
+			}
+		}
 	}
 
 	public void TakeDamage(int amount)		// Add in Vector2 hitPoint parameter for hit particle animations later.
@@ -101,6 +112,6 @@ public abstract class EnemyController : MonoBehaviour
 
 	protected virtual void dropItem()
 	{
-		print(Random.Range (1, 3) + " hello");
+		itemHandler.DropItem(this.transform.position);
 	}
 }
