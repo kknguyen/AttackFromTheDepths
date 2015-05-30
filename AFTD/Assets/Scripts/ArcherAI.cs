@@ -3,7 +3,8 @@ using System.Collections;
 
 public class ArcherAI : EnemyAI
 {
-	
+
+
 	protected override void Awake()
 	{
 		speed = 2;
@@ -25,6 +26,7 @@ public class ArcherAI : EnemyAI
 		if (distance < 10 && ChaseCondition())
 		{
 			StopMoving();
+			transform.rotation = Quaternion.LookRotation(Vector3.forward, playerPosition - transform.position);
 			if (attackCooldown <= 0)
 			{
 				enemyHealth.EnemyAttack();
@@ -35,6 +37,8 @@ public class ArcherAI : EnemyAI
 		else if (ChaseCondition())
 		{
 			this.GetComponent<Rigidbody2D>().velocity = playerDirection.normalized * speed;
+			transform.rotation = Quaternion.LookRotation(Vector3.forward, playerPosition - transform.position);
+			anim.SetBool("isWalking", true);
 			waitTime = 3;
         }
         else

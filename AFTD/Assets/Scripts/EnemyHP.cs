@@ -23,11 +23,14 @@ public class EnemyHP : MonoBehaviour
 		healthBar.maxValue = theEnemyController.startingHealth;
 		this.gameObject.SetActive(false);
 
+
+
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
+		transform.rotation = Quaternion.identity;
 		if (healthBar.value != theEnemyController.currentHealth)
 		{
 			healthBar.value = theEnemyController.currentHealth;

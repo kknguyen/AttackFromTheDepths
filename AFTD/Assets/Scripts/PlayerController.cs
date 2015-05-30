@@ -122,6 +122,8 @@ public class PlayerController : MonoBehaviour
 				break;
 			case "healthPowerUp":
 				currentHealth += 20;
+				if (currentHealth > startingHealth)
+					currentHealth = startingHealth;
 				break;
 		}
 	}

@@ -26,6 +26,7 @@ public class WarlockAI : EnemyAI
 		if (distance < 12 && ChaseCondition())
 		{
 			StopMoving();
+			transform.rotation = Quaternion.LookRotation(Vector3.forward, playerPosition - transform.position);
 			if (attackCooldown <= 0)
 			{
 				enemyHealth.EnemyAttack();
@@ -36,6 +37,8 @@ public class WarlockAI : EnemyAI
 		else if (ChaseCondition())
 		{
 			this.GetComponent<Rigidbody2D>().velocity = playerDirection.normalized * speed;
+			transform.rotation = Quaternion.LookRotation(Vector3.forward, playerPosition - transform.position);
+			anim.SetBool("isWalking", true);
 			waitTime = 3;
 		}
 		else

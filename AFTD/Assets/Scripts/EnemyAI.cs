@@ -8,7 +8,8 @@ public abstract class EnemyAI : MonoBehaviour
 	protected EnemyController enemyHealth;      // Reference to this enemy's health.
 	protected float attackCooldown;
 	protected float defaultCooldown = 1;
-	
+
+	protected Animator anim;
 
 	// Enemy pathfinding
 	protected bool patrolling;					// Is the enemy patrolling?
@@ -61,6 +62,7 @@ public abstract class EnemyAI : MonoBehaviour
 		enemyHealth = GetComponent <EnemyController>();
 		NewPatrolStartPoint();
 		NewPatrolDirection();
+		anim = GetComponent<Animator>();
 	}
 
 	protected virtual void Update()
@@ -92,6 +94,7 @@ public abstract class EnemyAI : MonoBehaviour
 		if (distance < 3 && ChaseCondition())
 		{
 			StopMoving();
+			transform.rotation = Quaternion.LookRotation(Vector3.forward, playerPosition - transform.position);
 			if (attackCooldown <= 0)
 			{
 				playerHealth.TakeDamage(enemyHealth.EnemyAttack());
@@ -103,6 +106,8 @@ public abstract class EnemyAI : MonoBehaviour
 		else if (ChaseCondition())
 		{
 				this.GetComponent<Rigidbody2D>().velocity = playerDirection.normalized * speed;
+				transform.rotation = Quaternion.LookRotation(Vector3.forward, playerPosition - transform.position);
+				anim.SetBool("isWalking", true);
 				waitTime = 3;
 		}
 		else
@@ -141,6 +146,9 @@ public abstract class EnemyAI : MonoBehaviour
 				NewPatrolDirection();
 			}
 			this.GetComponent<Rigidbody2D>().velocity = patrolDirection.normalized * speed;
+			Vector3 lookDirection = new Vector3(patrolDirection.x, patrolDirection.y, 0);
+			transform.rotation = Quaternion.LookRotation(Vector3.forward, lookDirection);
+			anim.SetBool("isWalking", true);
 		}
 	}
 
@@ -163,6 +171,7 @@ public abstract class EnemyAI : MonoBehaviour
 	protected virtual void StopMoving()
 	{
 		this.GetComponent<Rigidbody2D>().velocity = zeroVelocity;
+		anim.SetBool("isWalking", false);
 	}
 
 	protected virtual bool ChaseCondition()

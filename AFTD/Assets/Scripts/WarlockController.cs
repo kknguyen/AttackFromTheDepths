@@ -15,6 +15,7 @@ public class WarlockController : EnemyController
 	public override int EnemyAttack()
 	{
 		isAttacking = true;
+		anim.SetTrigger("attack");
 		return attackDamage;
 	}
 }

@@ -13,7 +13,7 @@ public class KnightController : EnemyController
 
 	public override int EnemyAttack()
 	{
-		//
+		anim.SetTrigger("attack");
 		return attackDamage;
 	}
 }

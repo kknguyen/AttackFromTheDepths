@@ -17,13 +17,13 @@ public class ArcherAttack : MonoBehaviour
 	{
 		if (theArcher.isAttacking)
 		{
-			ShootArrow();
+			Invoke("ShootArrow", 0.6f);
+			theArcher.isAttacking = false;
 		}
 	}
 
 	void ShootArrow()
 	{
 		Rigidbody2D anArrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity) as Rigidbody2D;
-		theArcher.isAttacking = false;
 	}
 }

@@ -36,24 +36,26 @@ public class FireBallClones : MonoBehaviour
 
 	}
 
-	void OnTriggerEnter2D(Collider2D collis)
+	void OnCollisionEnter2D(Collision2D collis)
 	{
 		if (collis.gameObject.tag == "wall")
 		{
+			this.GetComponent<CircleCollider2D>().isTrigger = true;
 			anim.SetTrigger("Hit");
 			this.GetComponent<Rigidbody2D>().velocity = thePlayer.transform.up * 0;
 			Destroy (this.gameObject, destroyTimeHit);
 		}
 		else if (collis.gameObject.tag == "enemy")
 		{
-			EnemyController enemyHealth = collis.GetComponent<EnemyController>();
+			EnemyController enemyHealth = collis.gameObject.GetComponent<EnemyController>();
 			if (enemyHealth.currentHealth > 0)
 			{
+				this.GetComponent<CircleCollider2D>().isTrigger = true;
 				collis.transform.GetChild(0).gameObject.SetActive (true);
 				anim.SetTrigger("Hit");
 				this.GetComponent<Rigidbody2D>().velocity = thePlayer.transform.up * 0;
 				Destroy (this.gameObject, destroyTimeHit);
-				enemyHealth.TakeDamage (100); //Changed to 100 for testing purposes.
+				enemyHealth.TakeDamage (1); //Changed to 100 for testing purposes.
 			}
 		}
 		else if (collis.gameObject.tag == "npc")

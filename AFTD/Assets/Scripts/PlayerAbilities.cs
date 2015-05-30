@@ -53,7 +53,7 @@ public class PlayerAbilities : MonoBehaviour
 			anim.SetTrigger ("flamethrow");
 			attack2Time = attack2CD;
 			Cast2();
-			Invoke("Cast2off", 1f);
+			Invoke("Cast2off", 1.417f);
 		}
 	}
 	

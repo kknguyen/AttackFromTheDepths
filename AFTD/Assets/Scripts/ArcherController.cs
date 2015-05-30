@@ -14,6 +14,7 @@ public class ArcherController : EnemyController
 
 	public override int EnemyAttack()
 	{
+		anim.SetTrigger("attack");
 		isAttacking = true;
 		return attackDamage;
 	}
