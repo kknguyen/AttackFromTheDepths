@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
-	public int startingHealth = 100;
+	public int startingHealth = 1000;
 	public int currentHealth;
 
 	private Vector3 movement;

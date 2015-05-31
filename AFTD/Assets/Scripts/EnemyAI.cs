@@ -170,8 +170,8 @@ public abstract class EnemyAI : MonoBehaviour
 
 	protected virtual void StopMoving()
 	{
-		this.GetComponent<Rigidbody2D>().velocity = zeroVelocity;
 		anim.SetBool("isWalking", false);
+		this.GetComponent<Rigidbody2D>().velocity = zeroVelocity;
 	}
 
 	protected virtual bool ChaseCondition()

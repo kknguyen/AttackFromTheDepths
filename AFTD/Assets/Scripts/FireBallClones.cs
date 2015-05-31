@@ -55,7 +55,7 @@ public class FireBallClones : MonoBehaviour
 				anim.SetTrigger("Hit");
 				this.GetComponent<Rigidbody2D>().velocity = thePlayer.transform.up * 0;
 				Destroy (this.gameObject, destroyTimeHit);
-				enemyHealth.TakeDamage (1); //Changed to 100 for testing purposes.
+				enemyHealth.TakeDamage (100); //Changed to 100 for testing purposes.
 			}
 		}
 		else if (collis.gameObject.tag == "npc")

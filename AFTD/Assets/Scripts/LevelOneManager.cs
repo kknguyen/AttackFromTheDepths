@@ -4,8 +4,9 @@ using System.Collections;
 public class LevelOneManager : LevelManager {
 
 	protected EnemyPooler enemies;
-	protected float spawnTime = 5f;
+	protected float spawnTime = 3f;
 	public Texture tint;
+
 
 	protected override void Awake()
 	{
@@ -29,41 +30,58 @@ public class LevelOneManager : LevelManager {
 
 	protected override void SpawnEnemies()
 	{
+		print ("im still spawning");
 		GameObject enemy = EnemyPooler.current.GetPooledObject();
 		
 		if (enemy == null) return;
 
 		int block = Random.Range(1, 4);
 		float x, y;
+		Vector3 temp = new Vector3(0, 0, 0);
 		switch(block)
 		{
 		case 1:
 			x = Random.Range(-20f, 20f);
 			y = Random.Range(8f, 12f);
-			enemy.transform.position = new Vector3(playerObj.transform.position.x + x, playerObj.transform.position.y + y, 0);
+			temp = new Vector3(playerObj.transform.position.x + x, playerObj.transform.position.y + y, 0);
 			break;
 		case 2:
 			x = Random.Range(16f, 20f);
 			y = Random.Range(-8f, 8f);
-			enemy.transform.position = new Vector3(playerObj.transform.position.x + x, playerObj.transform.position.y + y, 0);
+			temp = new Vector3(playerObj.transform.position.x + x, playerObj.transform.position.y + y, 0);
 			break;
 		case 3:
 			x = Random.Range(-20f, 20f);
 			y = Random.Range(-12f, -8f);
-			enemy.transform.position = new Vector3(playerObj.transform.position.x + x, playerObj.transform.position.y + y, 0);
+			temp = new Vector3(playerObj.transform.position.x + x, playerObj.transform.position.y + y, 0);
 			break;
 		case 4:
 			x = Random.Range(-20f, -16f);
 			y = Random.Range(-8f, 8f);
-			enemy.transform.position = new Vector3(playerObj.transform.position.x + x, playerObj.transform.position.y + y, 0);
+			temp = new Vector3(playerObj.transform.position.x + x, playerObj.transform.position.y + y, 0);
 			break;
 		}
+		if (temp.x > 45)
+			temp.x = 45;
+		if (temp.x < -45)
+			temp.x = -45;
+		if (temp.y > 45)
+			temp.y = 45;
+		if (temp.y < -45)
+			temp.y =-45;
 
-		var checkResult = Physics.OverlapSphere( enemy.transform.position, 0.5f);
-		if (checkResult.Length == 0)
+
+
+		var checkResult = Physics2D.OverlapCircle(temp, 0.25f);
+		if (checkResult == null)
 		{
-			enemy.transform.rotation = new Quaternion();
+			enemy.transform.position = temp;
 			enemy.SetActive(true);
+		}
+		else
+		{
+			print("uh oh");
+			return;
 		}
 	}
 	
