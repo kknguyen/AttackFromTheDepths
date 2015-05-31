@@ -38,7 +38,7 @@ public class EnemyHP : MonoBehaviour
 		}
 		if (theEnemyController.isDead)
 		{
-			Destroy (this.gameObject);
+			this.gameObject.SetActive(false);
 		}
 	}
 

@@ -30,6 +30,10 @@ public abstract class EnemyController : MonoBehaviour
 	// Set up object references
 	protected virtual void Start()
 	{
+		for (int i = 0; i < this.transform.GetChildCount(); ++i)
+		{
+			this.transform.GetChild(i).gameObject.SetActive(true);
+		}
   		anim = this.gameObject.GetComponent<Animator>();
 		enemyAudio = this.gameObject.GetComponent <AudioSource> ();
 //		hitParticles = GetComponentInChildren <ParticleSystem> ();
@@ -45,6 +49,7 @@ public abstract class EnemyController : MonoBehaviour
 			deadTime -= Time.deltaTime;
 			if(deadTime <= 0)
 			{
+				EnemyReset ();
 				this.gameObject.SetActive(false);
 			}
 		}
@@ -113,5 +118,13 @@ public abstract class EnemyController : MonoBehaviour
 	protected virtual void dropItem()
 	{
 		itemHandler.DropItem(this.transform.position);
+	}
+
+	public void EnemyReset()
+	{
+		currentHealth = startingHealth;
+		isDead = false;
+		boxCollider.isTrigger = false;
+		anim.SetTrigger ("respawn");
 	}
 }

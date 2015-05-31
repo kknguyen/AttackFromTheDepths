@@ -9,7 +9,7 @@ public class EnemyPooler : MonoBehaviour
 	public GameObject archer;
 	public GameObject warlock;
 	public int enemyPoolAmount = 30;
-	public bool willGrow = true;
+	public bool willGrow = false;
 	
 	List<GameObject> pooledObjects;
 	
