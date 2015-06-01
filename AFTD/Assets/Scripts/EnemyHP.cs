@@ -10,14 +10,15 @@ public class EnemyHP : MonoBehaviour
 	void Start ()
 	{
 		theEnemyController = GetComponentInParent<KnightController>();
-		if (theEnemyController == null) 
-		{
-			theEnemyController = GetComponentInParent<WarlockController>();
-		}
 		if(theEnemyController == null)
 		{
 			theEnemyController = GetComponentInParent<ArcherController>();
 		}
+		if (theEnemyController == null) 
+		{
+			theEnemyController = GetComponentInParent<WarlockController>();
+		}
+
 
 		healthBar = GetComponentInChildren<Slider>();
 		healthBar.maxValue = theEnemyController.startingHealth;

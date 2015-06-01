@@ -39,10 +39,10 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>X:/Programs/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>X:/Programs/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
@@ -62,6 +62,7 @@
      <Compile Include="Assets\Scripts\HUDScript.cs" />
      <Compile Include="Assets\Scripts\HealthPowerUp.cs" />
      <Compile Include="Assets\Scripts\ItemHandler.cs" />
+     <Compile Include="Assets\Scripts\KingControl.cs" />
      <Compile Include="Assets\Scripts\KnightAI.cs" />
      <Compile Include="Assets\Scripts\KnightController.cs" />
      <Compile Include="Assets\Scripts\LevelManager.cs" />
@@ -80,10 +81,10 @@
      <Compile Include="Assets\Scripts\attackDamageUIScript.cs" />
      <Compile Include="Assets\Scripts\moveSpeedUIScript.cs" />
  <Reference Include="UnityEngine.UI">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>X:/Programs/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
- <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iossupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+ <HintPath>X:/Programs/Editor/Data/PlaybackEngines/iossupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

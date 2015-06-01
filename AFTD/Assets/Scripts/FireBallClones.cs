@@ -55,7 +55,21 @@ public class FireBallClones : MonoBehaviour
 				anim.SetTrigger("Hit");
 				this.GetComponent<Rigidbody2D>().velocity = thePlayer.transform.up * 0;
 				Destroy (this.gameObject, destroyTimeHit);
-				enemyHealth.TakeDamage (100); //Changed to 100 for testing purposes.
+				enemyHealth.TakeDamage (10); //Changed to 100 for testing purposes.
+			}
+		}
+		else if(collis.gameObject.tag == "theKing")
+		{
+			KingControl enemyHealth = collis.gameObject.GetComponent<KingControl>();
+			print ("kings health" + enemyHealth.currentHealth);
+			if (enemyHealth.currentHealth > 0)
+			{
+				this.GetComponent<CircleCollider2D>().isTrigger = true;
+				//collis.transform.GetChild(0).gameObject.SetActive (true);
+				anim.SetTrigger("Hit");
+				this.GetComponent<Rigidbody2D>().velocity = thePlayer.transform.up * 0;
+				Destroy (this.gameObject, destroyTimeHit);
+				enemyHealth.TakeDamage (10); //Changed to 100 for testing purposes.
 			}
 		}
 		else if (collis.gameObject.tag == "npc")

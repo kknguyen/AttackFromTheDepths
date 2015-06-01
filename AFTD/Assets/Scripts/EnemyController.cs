@@ -8,10 +8,11 @@ public abstract class EnemyController : MonoBehaviour
 	public int attackDamage = 5;
 	public int scoreValue = 10;                 // The amount added to the player's score when the enemy dies.
 	public float deadTime = 5;					// Time in seconds that the splatter sprite stays on screen before it disappears.
+	public float defaultDeadTime = 5;
 
 	public AudioClip deathClip;                 // The sound to play when the enemy dies.
 
-	protected Animator anim;                    // Reference to the animator.
+	public Animator anim;                    // Reference to the animator.
 	protected AudioSource enemyAudio;           // Reference to the audio source.
 	protected ParticleSystem hitParticles;      // Reference to the particle system that plays when the enemy is damaged.
 	protected ItemHandler itemHandler;			// Reference to the ItemHandler to handle dropping items when an enemy dies.
@@ -89,7 +90,7 @@ public abstract class EnemyController : MonoBehaviour
 		
 		// Turn the collider into a trigger so shots can pass through it.
 		boxCollider.isTrigger = true;
-		
+
 		// Tell the animator that the enemy is dead.
 		anim.SetTrigger("Dead");
 		
@@ -124,6 +125,7 @@ public abstract class EnemyController : MonoBehaviour
 	{
 		currentHealth = startingHealth;
 		isDead = false;
+		deadTime = defaultDeadTime;
 		boxCollider.isTrigger = false;
 		anim.SetTrigger ("respawn");
 	}

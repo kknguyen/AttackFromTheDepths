@@ -59,8 +59,8 @@ public class PlayerAbilities : MonoBehaviour
 	
 	void Cast() 
 	{
-		aP.Stop();
-		aP.Play();
+		//aP.Stop();
+		//aP.Play();
 
 		Rigidbody2D bPrefab = Instantiate(abilityPrefab, transform.position, Quaternion.identity) as Rigidbody2D;
 	}
