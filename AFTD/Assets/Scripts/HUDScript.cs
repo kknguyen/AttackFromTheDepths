@@ -54,7 +54,11 @@ public class HUDScript : MonoBehaviour
 		ability2 = GameObject.FindGameObjectWithTag("ability2").GetComponent<Image>();
 		cdSlider2 = ability2.GetComponentInChildren<Slider>();
 		cdText2 = cdSlider2.GetComponentInChildren<Text>();
-		
+
+		ability3 = GameObject.FindGameObjectWithTag("ability3").GetComponent<Image>();
+		cdSlider3 = ability3.GetComponentInChildren<Slider>();
+		cdText3 = cdSlider3.GetComponentInChildren<Text>();
+
 		powerUpPanel = GameObject.FindGameObjectWithTag("powerUpPanel").GetComponent<RectTransform>();
 		
 		
@@ -85,7 +89,18 @@ public class HUDScript : MonoBehaviour
 			cdText2.text = theAbilities.attack2Time.ToString("F1");
 			cdSlider2.value = 100 * (theAbilities.attack2Time/theAbilities.attack2CD);
 		}
-		
+
+		if (theAbilities.attack3Time <= 0)
+		{
+			cdText3.text = "";
+			cdSlider3.value = 0;
+		}
+		else
+		{
+			cdText3.text = theAbilities.attack3Time.ToString("F1");
+			cdSlider3.value = 100 * (theAbilities.attack3Time/theAbilities.attack3CD);
+        }
+        
 		if (thePlayerController.moveSpeedCount == 0)
 			showMoveSpeed = false;
 		if (thePlayerController.attackDamageCount == 0)

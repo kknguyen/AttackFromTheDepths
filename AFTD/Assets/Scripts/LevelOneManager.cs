@@ -6,6 +6,8 @@ public class LevelOneManager : LevelManager {
 	protected EnemyPooler enemies;
 	protected float spawnTime = 3f;
 	public Texture tint;
+	public GameObject bossWallOff;
+	private BoxCollider2D boxCollider;
 
 
 	protected override void Awake()
@@ -15,6 +17,7 @@ public class LevelOneManager : LevelManager {
 
 	protected override void Start()
 	{
+		boxCollider = GetComponent<BoxCollider2D>();
 		player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 		playerObj = GameObject.FindGameObjectWithTag("Player");
 		InvokeRepeating ("SpawnEnemies", spawnTime, spawnTime);
@@ -109,5 +112,13 @@ public class LevelOneManager : LevelManager {
 				Application.LoadLevel("MainMenu");
 			}
 		}
+	}
+	void OnTriggerEnter2D(Collider2D collis)
+	{
+		if (collis.gameObject.tag == "Player") 
+		{
+			Instantiate (bossWallOff,new Vector2(43.44f,52.87f),Quaternion.identity);
+			Destroy(boxCollider);
+		} 
 	}
 }

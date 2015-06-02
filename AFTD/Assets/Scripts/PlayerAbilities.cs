@@ -6,7 +6,9 @@ public class PlayerAbilities : MonoBehaviour
 	public ParticleSystem aP;
 	public Rigidbody2D abilityPrefab;
 	public GameObject ability2Prefab;
+	public GameObject ability3Prefab;
 	GameObject bPrefab2;
+	GameObject bPrefab3;
 
 	public Animator anim;
 	
@@ -18,8 +20,9 @@ public class PlayerAbilities : MonoBehaviour
 	public float attack2CD = 5f;
 	public float attack2Time = 0f;
 
-	public float attack3CD;
+	public float attack3CD = 8f;
 	public float attack3Time = 0f;
+
 
 	void Awake()
 	{
@@ -32,6 +35,10 @@ public class PlayerAbilities : MonoBehaviour
 		bPrefab2.transform.SetParent(GameObject.FindGameObjectWithTag("Player").transform);
 		bPrefab2.SetActive(false);
 
+		bPrefab3 = Instantiate(ability3Prefab, transform.position, Quaternion.identity) as GameObject;
+		bPrefab3.transform.SetParent(GameObject.FindGameObjectWithTag("Player").transform);
+		bPrefab3.SetActive(false);
+        
 	}
 	
 	// Update is called once per frame
@@ -39,6 +46,7 @@ public class PlayerAbilities : MonoBehaviour
 	{
 		attack1Time -= Time.deltaTime;
 		attack2Time -= Time.deltaTime;
+		attack3Time -= Time.deltaTime;
 		//isPaused = GameObject.FindGameObjectWithTag("HUD").GetComponent<Pause>().paused;
 		if (Input.GetMouseButton(0) && Time.timeScale == 1 && attack1Time <= 0)
 		{
@@ -55,7 +63,15 @@ public class PlayerAbilities : MonoBehaviour
 			Cast2();
 			Invoke("Cast2off", 1.417f);
 		}
-	}
+		if (Input.GetKey("r") && Time.timeScale == 1 && attack3Time <= 0)
+		{
+			anim.SetBool ("isWalking", false);
+			anim.SetTrigger ("meteor");
+			attack3Time = attack3CD;
+			Cast3();
+            //Invoke("Cast3off", 1.417f);
+        }
+    }
 	
 	void Cast() 
 	{
@@ -74,4 +90,16 @@ public class PlayerAbilities : MonoBehaviour
 	{
 		bPrefab2.SetActive(false);
 	}
+
+	void Cast3()
+	{
+		Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		bPrefab3 = Instantiate(ability3Prefab, mousePos, Quaternion.identity) as GameObject;
+		//bPrefab3.SetActive (true);
+	}
+	
+//	void Cast3off()
+//	{
+//		bPrefab3.SetActive(false);
+//    }
 }
