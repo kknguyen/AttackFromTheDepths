@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 	public int moveSpeedCount = 0;
 	private float attackDamage = 1f;
 	public int attackDamageCount = 0;
-
+	public bool acquiredBossKey = false;
 
 	void Awake()
 	{
@@ -124,6 +124,9 @@ public class PlayerController : MonoBehaviour
 				currentHealth += 20;
 				if (currentHealth > startingHealth)
 					currentHealth = startingHealth;
+				break;
+			case "bossKeyPowerUp":
+				acquiredBossKey = true;
 				break;
 		}
 	}

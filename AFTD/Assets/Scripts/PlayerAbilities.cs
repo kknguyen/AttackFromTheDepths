@@ -47,7 +47,7 @@ public class PlayerAbilities : MonoBehaviour
 			attack1Time = attack1CD;
 			Cast();
 		}
-		if (Input.GetKey("r") && Time.timeScale == 1 && attack2Time <= 0)
+		if (Input.GetKey("e") && Time.timeScale == 1 && attack2Time <= 0)
 		{
 			//anim.SetBool ("isWalking", false);
 			anim.SetTrigger ("flamethrow");
