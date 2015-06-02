@@ -13,18 +13,19 @@ public class KingControl : MonoBehaviour {
 	Vector2 zeroVel = new Vector2(0, 0);
 
 	// Ability cooldown and timers
-	float meleeAttackCD;
+	float meleeAttackCD = 5F;
 	float meleeAttackTime;
-	float laserAttackCD;
+	float laserAttackCD = 5F;
 	float laserAttackTime;
-	float swordSummonAttackCD;
+	float swordSummonAttackCD = 5F;
 	float swordSummonAttackTime;
-	float teleCD;
+	float teleCD = 5F;
 	float teleTime;
 	int healLimit;
 	int healCount;
 	
 	Vector2[] retreatPoints;
+	Vector2 teleLoc;
 
 	// References
 	Animator anim; 
@@ -36,6 +37,7 @@ public class KingControl : MonoBehaviour {
 	public AudioClip teleAudio;
 	PlayerController thePlayerController;
 	GameObject thePlayer;
+	Vector2 playerDirection;
 	Rigidbody2D kingRB;
 
 	void Awake()
@@ -43,6 +45,11 @@ public class KingControl : MonoBehaviour {
 		retreatPoints = new Vector2[4];
 		currentHealth = startingHealth;
 		// set 4 corner retreat points
+		canMove = true;
+		meleeAttackCD = 5f;
+		laserAttackCD = 5f;
+		swordSummonAttackCD = 5f;
+		teleCD = 5f;
 	}
 
 	void Start()
@@ -56,7 +63,13 @@ public class KingControl : MonoBehaviour {
 
 	void Update()
 	{
+		playerDirection = thePlayer.transform.position - transform.position;
 		UpdateTimers();
+
+		if (true)
+		{
+			this.transform.rotation = Quaternion.LookRotation(Vector3.forward, thePlayer.transform.position - transform.position);
+		}
 
 		if (currentHealth <= 0)
 		{
@@ -71,18 +84,25 @@ public class KingControl : MonoBehaviour {
 	void KingAI()
 	{
 		// if low, teleport away and heal
-		if (currentHealth <= 100 && healCount < healLimit && canMove)
-		{
+		if (currentHealth <= 100 && healCount < healLimit && canMove) {
+			StopMoving ();
 			healCount++;
-			Retreat();
-		}
-		else if (DistanceFromPlayer() < 3 && meleeAttackTime <= 0 && canMove)
-		{
+			Retreat ();
+		} else if (DistanceFromPlayer () < 3 && meleeAttackTime <= 0 && canMove) {
+			print ("iwant to melee");
+			StopMoving ();
 			MeleeAttack ();
-		}
-		else if (DistanceFromPlayer() < 10 && (laserAttackTime <= 0 || swordSummonAttackTime <= 0) && canMove)
+		} else if (DistanceFromPlayer () < 10 && (laserAttackTime <= 0 || swordSummonAttackTime <= 0) && canMove) {
+			StopMoving ();
+			RandomRangedAttack ();
+		} else if (DistanceFromPlayer () >= 15 && teleTime <= 0 && canMove) {
+			Vector2 playerLoc = thePlayer.transform.position;
+			StopMoving ();
+			Teleport (playerLoc);
+		} 
+		else
 		{
-			RandomRangedAttack();
+
 		}
 	}
 
@@ -105,8 +125,15 @@ public class KingControl : MonoBehaviour {
 	void Teleport(Vector2 location)
 	{
 		teleTime = teleCD;
+		teleLoc = thePlayer.transform.position;
 		anim.SetTrigger("teleport");
-		this.transform.position = location;
+		Invoke ("ChangeLoc", 0.75f);
+	}
+
+	void ChangeLoc()
+	{
+		this.transform.position = teleLoc;
+		canMove = true;
 	}
 
 	void HealingStance()
@@ -137,6 +164,7 @@ public class KingControl : MonoBehaviour {
 		enemySound.clip = meleeAudio;
 		enemySound.Play();
 		thePlayerController.TakeDamage(20);
+		canMove = true;
 	}
 
 
@@ -169,7 +197,7 @@ public class KingControl : MonoBehaviour {
 		enemySound.Play();
 		//instantiate laser and set rotations
 		//check collision on laser script
-		
+		canMove = true;
 	}
 
 	void SummonSword()
@@ -180,6 +208,7 @@ public class KingControl : MonoBehaviour {
 		enemySound.Play();
 		//instantiate sword and set rotations
 		//check collision on sword script
+		canMove = true;
 	}
 
 	void Death()
@@ -208,6 +237,7 @@ public class KingControl : MonoBehaviour {
 
 	void StopMoving()
 	{
+		canMove = false;
 		anim.SetBool("isWalking", false);
 		kingRB.velocity = zeroVel;
 	}
