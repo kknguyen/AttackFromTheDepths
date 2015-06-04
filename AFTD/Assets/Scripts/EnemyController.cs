@@ -9,6 +9,7 @@ public abstract class EnemyController : MonoBehaviour
 	public int scoreValue = 10;                 // The amount added to the player's score when the enemy dies.
 	public float deadTime = 5;					// Time in seconds that the splatter sprite stays on screen before it disappears.
 	public float defaultDeadTime = 5;
+	public float hitTime = 0;					// The time inbetween player abilities that an enemy can be damaged by.
 
 	public AudioClip deathClip;                 // The sound to play when the enemy dies.
 
@@ -29,7 +30,7 @@ public abstract class EnemyController : MonoBehaviour
 	}
 
 	// Set up object references
-	protected virtual void Start()
+	protected virtual void OnEnable()
 	{
 		for (int i = 0; i < this.transform.GetChildCount(); ++i)
 		{
@@ -52,6 +53,22 @@ public abstract class EnemyController : MonoBehaviour
 			{
 				EnemyReset ();
 				this.gameObject.SetActive(false);
+			}
+		}
+	}
+
+	protected virtual void OnTriggerStay2D(Collider2D collis)
+	{
+
+		if (collis.gameObject.tag == "meteors")
+		{	
+			hitTime -= Time.deltaTime;
+			if (currentHealth > 0 && hitTime <= 0)
+			{
+				this.transform.GetChild(0).gameObject.SetActive (true);
+				wasHit = true;
+				TakeDamage (10);
+				hitTime = 0.5f;
 			}
 		}
 	}

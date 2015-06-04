@@ -40,6 +40,8 @@ public class KingControl : MonoBehaviour {
 	Vector2 playerDirection;
 	Rigidbody2D kingRB;
 
+	protected BoxCollider2D boxCollider;
+
 	void Awake()
 	{
 		currentHealth = startingHealth;
@@ -62,6 +64,7 @@ public class KingControl : MonoBehaviour {
 	{
 		anim = GetComponent<Animator>();
 		enemySound = GetComponent<AudioSource>();
+		boxCollider = GetComponent <BoxCollider2D> ();
 		kingRB = GetComponent<Rigidbody2D>();
 		thePlayer = GameObject.FindGameObjectWithTag("Player");
 		thePlayerController = thePlayer.GetComponent<PlayerController>();
@@ -238,7 +241,13 @@ public class KingControl : MonoBehaviour {
 	void Death()
 	{
 		isDead = true;
-		// do other death stuff
+
+		// Turn the collider into a trigger so shots can pass through it.
+		boxCollider.isTrigger = true;
+		
+		// Tell the animator that the enemy is dead.
+		anim.SetTrigger("Dead");
+		Destroy(this.gameObject, 10);
 	}
 
 	float DistanceFromPlayer()
