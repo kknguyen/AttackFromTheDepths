@@ -40,6 +40,8 @@ public class KingControl : MonoBehaviour {
 	Vector2 playerDirection;
 	Rigidbody2D kingRB;
 
+	public Rigidbody2D swords;
+
 	public GameObject beams;
 	protected BoxCollider2D boxCollider;
 
@@ -245,9 +247,14 @@ public class KingControl : MonoBehaviour {
 		anim.SetTrigger("summon");
 		enemySound.clip = swordSummonAudio;
 		enemySound.Play();
-		//instantiate sword and set rotations
+		Invoke ("ThrowSword", 1.185f);
+        //instantiate sword and set rotations
 		//check collision on sword script
 		Invoke("SetMove", 1.417F);
+	}
+	void ThrowSword()
+	{
+		Rigidbody2D sword = Instantiate (swords, transform.position, Quaternion.identity) as Rigidbody2D;
 	}
 
 	void Death()

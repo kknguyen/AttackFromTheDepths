@@ -72,22 +72,5 @@ public class FireBallClones : MonoBehaviour
 				enemyHealth.TakeDamage (10); //Changed to 100 for testing purposes.
 			}
 		}
-		else if (collis.gameObject.tag == "npc")
-		{
-			StartCoroutine ("TriggerDelay");
-
-		}
-	}
-
-	// Added a tiny bit delay when hitting an npc because it had a larger
-	// 2d box collider for triggering dialog purposes. Because of this, the fireball
-	// needs a little delay before it "hits" the npc or else it will look unnatural
-	// hitting the outside box collider.
-	private IEnumerator TriggerDelay()
-	{
-		yield return new WaitForSeconds (0.045f);
-		anim.SetTrigger("Hit");
-		this.GetComponent<Rigidbody2D>().velocity = thePlayer.transform.up * 0;
-		Destroy (this.gameObject, destroyTimeHit);
 	}
 }

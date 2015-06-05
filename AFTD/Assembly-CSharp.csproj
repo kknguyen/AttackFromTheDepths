@@ -86,6 +86,7 @@
      <Compile Include="Assets\Scripts\attackDamageUIScript.cs" />
      <Compile Include="Assets\Scripts\bossKeyUIScript.cs" />
      <Compile Include="Assets\Scripts\moveSpeedUIScript.cs" />
+     <Compile Include="Assets\SwordClones.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
