@@ -40,6 +40,7 @@ public class KingControl : MonoBehaviour {
 	Vector2 playerDirection;
 	Rigidbody2D kingRB;
 
+	public GameObject beams;
 	protected BoxCollider2D boxCollider;
 
 	void Awake()
@@ -68,6 +69,10 @@ public class KingControl : MonoBehaviour {
 		kingRB = GetComponent<Rigidbody2D>();
 		thePlayer = GameObject.FindGameObjectWithTag("Player");
 		thePlayerController = thePlayer.GetComponent<PlayerController>();
+
+		beams = Instantiate(beams, new Vector3(transform.position.x-0.03f, transform.position.y+4.8f, transform.position.z), Quaternion.identity) as GameObject;
+		beams.transform.SetParent(GameObject.FindGameObjectWithTag("theKing").transform);
+		beams.SetActive(false);
 	}
 
 	void Update()
@@ -222,9 +227,16 @@ public class KingControl : MonoBehaviour {
 		anim.SetTrigger("laser");
 		enemySound.clip = laserAudio;
 		enemySound.Play();
+		beams.SetActive(true);
+		Invoke("ShootLaserOff", 1.417f);
 		//instantiate laser and set rotations
 		//check collision on laser script
 		Invoke("SetMove", 1.417F);
+	}
+
+	void ShootLaserOff()
+	{
+		beams.SetActive(false);
 	}
 
 	void SummonSword()
