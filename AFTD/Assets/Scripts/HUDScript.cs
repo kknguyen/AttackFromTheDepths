@@ -8,6 +8,10 @@ public class HUDScript : MonoBehaviour
 	PlayerAbilities theAbilities;
 	Slider healthBar;
 	Text healthValue;
+
+	KingControl theKing;
+	Slider bossHealthBar;
+	Text bossHealthValue;
 	
 	Image ability1;
 	Text cdText1;
@@ -45,8 +49,13 @@ public class HUDScript : MonoBehaviour
 		theAbilities = thePlayer.GetComponentInChildren<PlayerAbilities>();
 		
 		healthBar = GameObject.FindGameObjectWithTag("healthBar").GetComponent<Slider>();
-		healthValue = GetComponentInChildren<Text>();
-		
+		healthValue = healthBar.GetComponentInChildren<Text>();
+
+		theKing = GameObject.FindGameObjectWithTag("theKing").GetComponent<KingControl>();
+
+		bossHealthBar = GameObject.FindGameObjectWithTag("bossHealthBar").GetComponent<Slider>();
+		bossHealthValue = bossHealthBar.GetComponentInChildren<Text>();
+
 		ability1 = GameObject.FindGameObjectWithTag("ability1").GetComponent<Image>();
 		cdSlider1 = ability1.GetComponentInChildren<Slider>();
 		cdText1 = cdSlider1.GetComponentInChildren<Text>();
@@ -126,9 +135,11 @@ public class HUDScript : MonoBehaviour
 			showBossKey = true;
 		}
 		
-		healthBar.value = thePlayerController.currentHealth;
-		
+		healthBar.value = thePlayerController.currentHealth;		
 		healthValue.text = thePlayerController.currentHealth + "/" + thePlayerController.startingHealth;
+
+		bossHealthBar.value = theKing.currentHealth;		
+		bossHealthValue.text = "The King's HP: " + theKing.currentHealth + "/" + theKing.startingHealth;
 		
 	}
 	

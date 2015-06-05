@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class KingControl : MonoBehaviour {
 
-	public int startingHealth = 130;
+	public int startingHealth = 1000;
 	public int currentHealth;
 	float movespeed;
 	bool isDead;

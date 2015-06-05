@@ -18,7 +18,7 @@ public class FireCone : MonoBehaviour
 		{
 
 		}
-		else if (collis.gameObject.tag == "enemy")
+		if (collis.gameObject.tag == "enemy")
 		{
 			EnemyController enemyHealth = collis.GetComponent<EnemyController>();
 			enemyHealth.wasHit = true;
@@ -27,9 +27,18 @@ public class FireCone : MonoBehaviour
 			if (enemyHealth.currentHealth > 0)
 			{
 				collis.transform.GetChild(0).gameObject.SetActive (true);
-				print ("hit with cone");
-				collis.transform.Translate(targetPosition.normalized*4);
-				enemyHealth.TakeDamage (25);
+				collis.transform.Translate(targetPosition.normalized*2);
+				enemyHealth.TakeDamage (10);
+			}
+		}
+		if (collis.gameObject.tag == "theKing")
+		{
+			KingControl enemyHealth = collis.GetComponent<KingControl>();
+			Vector3 targetPosition = collis.transform.position - this.transform.position;
+			targetPosition.z = 0;
+			if (enemyHealth.currentHealth > 0)
+			{
+				enemyHealth.TakeDamage(10);
 			}
 		}
 	}
