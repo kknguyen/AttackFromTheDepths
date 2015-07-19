@@ -3,29 +3,49 @@ using System.Collections;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
 	public static GameManager manager;
 
+	//Game Options
+	public int masterVolume;
+	public int musicVolume;
+	public int soundEffectsVolume;
+
+	//Character Stats
 	public float health;
 	public float experience;
-
 
 	// Singleton design, only ONE instance of game manager at a time
 	void Awake ()
 	{
-		if (manager == null)
-		{
-			DontDestroyOnLoad(this.gameObject);
+		if (manager == null) {
+			DontDestroyOnLoad (this.gameObject);
 			manager = this;
-		}
-		else if (manager != this)
-		{
+		} else if (manager != this) {
 			Destroy (this.gameObject);
 		}
 	}
-	
+
+
+	public void masterVolumeChanged(){
+		Slider go = GameObject.Find ("master").GetComponent<Slider>();
+		if(go != null)
+			masterVolume = (int)go.value;
+	}
+	public void musicVolumeChanged(){
+		Slider go = GameObject.Find ("music").GetComponent<Slider>();
+		if(go != null)
+			musicVolume = (int)go.value;
+	}
+	public void soundEffectsVolumeChanged(){
+		Slider go = GameObject.Find ("soundEffects").GetComponent<Slider> ();
+		if (go != null)
+			soundEffectsVolume = (int)go.value;
+	}
+
 	public void Save()
 	{
 		BinaryFormatter bf = new BinaryFormatter();

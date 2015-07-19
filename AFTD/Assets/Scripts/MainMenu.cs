@@ -3,10 +3,10 @@ using System.Collections;
 
 public class MainMenu : MonoBehaviour
 {
-	private bool isFirstMenu = true;
+	private bool isFirstMenu = false;
 	private bool isGameMenu = false;
 	private bool isOptionsMenu = false;
-	private bool isSoundLevelsMenu = false;
+	private bool isSoundLevelsMenu = true;
 	private bool isKeyBindingsMenu = false;
 	private bool isClearDataMenu = false;
 	private bool isDataDeleted = false;
@@ -16,23 +16,7 @@ public class MainMenu : MonoBehaviour
 	private float soundEffectsVolumeValue = 100f;
 
 	GUIStyle centered;
-	
-	void Awake()
-	{
 
-	}
-	
-	void Start()
-	{
-		
-	}
-	
-	// Update is called once per frame
-	void Update()
-	{
-		
-	}
-	
 	void OnGUI()
 	{
 		FirstMenu();
@@ -179,5 +163,29 @@ public class MainMenu : MonoBehaviour
 				isDataDeleted = false;
 			}
 		}
+	}
+	/**
+	 *get method for the master volume value 
+	 *@return float value of the masterVolumeValue
+	 */
+	public float getMasterVolume()
+	{
+		return masterVolumeValue;
+	}
+	/**
+	 *get method for the master volume value 
+	 *@return float value of the musicVolumeValue
+	 */
+	public float getMusicVolume()
+	{
+		return musicVolumeValue;
+	}
+	/**
+	 *get method for the master volume value 
+	 *@return float value of the soundEffectsVolumeValue
+	 */
+	public float getSoundEffectsVolume()
+	{
+		return soundEffectsVolumeValue;
 	}
 }
