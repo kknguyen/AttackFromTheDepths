@@ -58,7 +58,7 @@ public class KingControl : MonoBehaviour {
 
 		canMove = false;
 		meleeAttackCD = 0.7f;
-		laserAttackCD = 7f;
+		laserAttackCD = 8f;
 		swordSummonAttackCD = 5f;
 		teleCD = 5f;
 		movespeed = 3f;
@@ -125,7 +125,7 @@ public class KingControl : MonoBehaviour {
 			StopMoving();
 			RandomRangedAttack ();
 		} 
-		else if (DistanceFromPlayer () >= 15 && teleTime <= 0 && canMove) 
+		else if (DistanceFromPlayer () >= 13 && teleTime <= 0 && canMove) 
 		{
 			Vector2 playerLoc = thePlayer.transform.position;
 			StopMoving();
