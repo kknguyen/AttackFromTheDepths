@@ -90,7 +90,8 @@ public class LevelOneManager : LevelManager {
 	
 	protected override void StartBoss()
 	{
-
+		KingControl king = GameObject.FindGameObjectWithTag("theKing").GetComponent<KingControl>();
+		king.canMove = true;
 	}
 
 	void GameOver()
@@ -118,6 +119,7 @@ public class LevelOneManager : LevelManager {
 		if (collis.gameObject.tag == "Player") 
 		{
 			Instantiate (bossWallOff,new Vector2(43.44f,52.87f),Quaternion.identity);
+			StartBoss();
 			Destroy(boxCollider);
 		} 
 	}

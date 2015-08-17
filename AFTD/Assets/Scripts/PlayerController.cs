@@ -5,9 +5,23 @@ public class PlayerController : MonoBehaviour
 {
 	public int startingHealth = 1000;
 	public int currentHealth;
+	public GameObject rightClick;
 
-	private Vector3 movement;
+	// x variable for movement
+	public float h;
+	// y variable for movement
+	public float v; 
+
+	// Used for right click animation.
+	public Vector2 mousePos;
+
+	// Used to determine which way the player is facing.
+	public Vector3 turnMouse;
+	public Vector3 movement;
 	private Animator anim;
+
+	//Rigidbody2D needs to have "Fixed Angle" checked
+	//so that the player doesn't spin around when clicking to move.
 	private Rigidbody2D playerRigidbody2D;
 	private BoxCollider2D playerBoxCollider2D;
 	private int floorMask;
@@ -33,14 +47,33 @@ public class PlayerController : MonoBehaviour
 		anim = GetComponent<Animator>();
 		playerRigidbody2D = GetComponent<Rigidbody2D>();
 		playerBoxCollider2D = GetComponent<BoxCollider2D>();
+		mousePos = playerRigidbody2D.position;
 	}
 
 	void FixedUpdate()
 	{
-		float h = Input.GetAxisRaw("Horizontal");
-		float v = Input.GetAxisRaw("Vertical");
+		if (Input.GetMouseButton(1)) 
+		{
+			mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			turnMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			if (Input.GetMouseButtonDown(1)) 
+			{
+				Instantiate(rightClick, mousePos, Quaternion.identity);
+			}
+			Turning();
+		}
+
+		h = (mousePos.x - transform.position.x);
+		v = (mousePos.y - transform.position.y);
+		//Fixes shaking issue where when you are really close to destination, it doesn't stop moving.
+		//If you are close enough to the destination, it will get h and v to 0 to stop the shaking.
+		if (h < 0.1 && h > -0.1 && v < 0.1 && v > -0.1) 
+		{
+			h = 0;
+			v = 0;
+		}
 		Move(h, v);
-		Turning();
+		//Turning();
 		Animating (h, v);
 	}
 
@@ -53,13 +86,8 @@ public class PlayerController : MonoBehaviour
 
 	void Turning()
 	{
-		//var mousePosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-		//Quaternion rot = Quaternion.LookRotation (transform.position - mousePosition, Vector3.forward);
-		//transform.rotation = rot;
-		//transform.eulerAngles = new Vector3 (0, 0, transform.eulerAngles.z);
-
-		Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		transform.rotation = Quaternion.LookRotation(Vector3.forward, mousePos - transform.position);
+		//Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		transform.rotation = Quaternion.LookRotation(Vector3.forward, turnMouse - transform.position);
 	}
 
 	public void TakeDamage(int amount)		// Add in Vector2 hitPoint parameter for hit particle animations later.

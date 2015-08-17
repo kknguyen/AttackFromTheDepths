@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\RightClick.cs" />
      <Compile Include="Assets\Scripts\ArcherAI.cs" />
      <Compile Include="Assets\Scripts\ArcherAttack.cs" />
      <Compile Include="Assets\Scripts\ArcherController.cs" />

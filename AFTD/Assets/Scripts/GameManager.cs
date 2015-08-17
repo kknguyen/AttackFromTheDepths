@@ -1,9 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+
+// Additional libraries
+// Writing out binary files so that players can't modify them to save player prefs/hp/experience.
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
+// Contain some data and enable to keep it from scene to scene.
+// PlayerPrefs for "non-important" data. Shouldn't save game data/important stuff because it is an editable text file.
+// "Singleton" design pattern, but not really.
 public class GameManager : MonoBehaviour
 {
 	public static GameManager manager;
@@ -25,17 +31,22 @@ public class GameManager : MonoBehaviour
 			Destroy (this.gameObject);
 		}
 	}
-	
+
+	// Saves data out to a file. **Will not work with web b/c we can only save local files.**
 	public void Save()
 	{
-		BinaryFormatter bf = new BinaryFormatter();
+		BinaryFormatter formatter = new BinaryFormatter();
+		
+		// Persistant nested path where Unity will save game data.
 		FileStream file = File.Create(Application.persistentDataPath + "/playerData.dat");
-
+		
+		// Create a save file with the data you want to save.
 		PlayerData data = new PlayerData();
 		data.health = health;
 		data.experience = experience;
-
-		bf.Serialize(file, data);
+		
+		// Serialize the file and then write it, then close it.
+		formatter.Serialize (file, data);
 		file.Close();
 	}
 
@@ -43,9 +54,9 @@ public class GameManager : MonoBehaviour
 	{
 		if (File.Exists(Application.persistentDataPath + "/playerData.dat"))
 		{
-			BinaryFormatter bf = new BinaryFormatter();
+			BinaryFormatter formatter = new BinaryFormatter();
 			FileStream file = File.Open(Application.persistentDataPath + "/playerData.dat", FileMode.Open);
-			PlayerData data = (PlayerData)bf.Deserialize(file);
+			PlayerData data = (PlayerData)formatter.Deserialize(file);
 			file.Close();
 
 			health = data.health;
@@ -62,9 +73,11 @@ public class GameManager : MonoBehaviour
 	}
 }
 
+// To make this class serializable, [Serializable]
 [Serializable]
 class PlayerData
 {
+	//use gets/sets for security...but maybe later.
 	public float health;
 	public float experience;
 }

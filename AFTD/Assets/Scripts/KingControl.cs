@@ -8,7 +8,7 @@ public class KingControl : MonoBehaviour {
 	public int currentHealth;
 	float movespeed;
 	bool isDead;
-	bool canMove;
+	public bool canMove;
 
 	Vector2 zeroVel = new Vector2(0, 0);
 
@@ -54,7 +54,7 @@ public class KingControl : MonoBehaviour {
 		retreatPoints[2] = new Vector2(25, 56);
 		retreatPoints[3] = new Vector2(45, 56);
 
-		canMove = true;
+		canMove = false;
 		meleeAttackCD = 0.7f;
 		laserAttackCD = 5f;
 		swordSummonAttackCD = 5f;
@@ -164,19 +164,20 @@ public class KingControl : MonoBehaviour {
 		}
 	}
 
+	// The king's pause after he teleports and before he starts moving again.
 	void ChangeLoc()
 	{
 		this.transform.position = teleLoc;
-		Invoke("SetMove", 2.5F);
+		Invoke("SetMove", 0.75f);
 	}
 
 	void HealingStance()
 	{
 		for (int i = 0; i < 4; i++)
 		{
-			Invoke("Heal", 1F);
+			Invoke("Heal", 1f);
 		}
-		Invoke("SetMove", 4F);
+		Invoke("SetMove", 4f);
 	}
 
 	void Heal()
@@ -198,7 +199,7 @@ public class KingControl : MonoBehaviour {
 		enemySound.clip = meleeAudio;
 		enemySound.Play();
 		thePlayerController.TakeDamage(20);
-		Invoke("SetMove", 0.667F);
+		Invoke("SetMove", 0.667f);
 	}
 
 

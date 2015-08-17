@@ -7,6 +7,7 @@ public class PlayerAbilities : MonoBehaviour
 	public Rigidbody2D abilityPrefab;
 	public GameObject ability2Prefab;
 	public GameObject ability3Prefab;
+	public PlayerController playerController;
 	GameObject bPrefab2;
 	GameObject bPrefab3;
 
@@ -38,7 +39,7 @@ public class PlayerAbilities : MonoBehaviour
 		bPrefab3 = Instantiate(ability3Prefab, transform.position, Quaternion.identity) as GameObject;
 		bPrefab3.transform.SetParent(GameObject.FindGameObjectWithTag("Player").transform);
 		bPrefab3.SetActive(false);
-        
+		playerController = GetComponentInParent<PlayerController>();       
 	}
 	
 	// Update is called once per frame
@@ -51,23 +52,16 @@ public class PlayerAbilities : MonoBehaviour
 		if (Input.GetMouseButton(0) && Time.timeScale == 1 && attack1Time <= 0)
 		{
 			//anim.SetBool ("isWalking", false);
-			anim.SetTrigger ("fireball");
-			attack1Time = attack1CD;
 			Cast();
 		}
 		if (Input.GetKey("e") && Time.timeScale == 1 && attack2Time <= 0)
 		{
 			//anim.SetBool ("isWalking", false);
-			anim.SetTrigger ("flamethrow");
-			attack2Time = attack2CD;
 			Cast2();
 			Invoke("Cast2off", 1.417f);
 		}
 		if (Input.GetKey("r") && Time.timeScale == 1 && attack3Time <= 0)
 		{
-			anim.SetBool ("isWalking", false);
-			anim.SetTrigger ("meteor");
-			attack3Time = attack3CD;
 			Cast3();
             //Invoke("Cast3off", 1.417f);
         }
@@ -77,12 +71,21 @@ public class PlayerAbilities : MonoBehaviour
 	{
 		//aP.Stop();
 		//aP.Play();
+		anim.SetTrigger ("fireball");
+		attack1Time = attack1CD;		
+		Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+		// Turns the player around and stops moving before shooting.
+		transform.parent.rotation = Quaternion.LookRotation(Vector3.forward, mousePos - transform.position);
+		playerController.mousePos.x = playerController.transform.position.x;
+		playerController.mousePos.y = playerController.transform.position.y;
 		Rigidbody2D bPrefab = Instantiate(abilityPrefab, transform.position, Quaternion.identity) as Rigidbody2D;
 	}
 
 	void Cast2()
 	{
+		anim.SetTrigger ("flamethrow");
+		attack2Time = attack2CD;
 		bPrefab2.SetActive (true);
 	}
 
@@ -93,6 +96,9 @@ public class PlayerAbilities : MonoBehaviour
 
 	void Cast3()
 	{
+		anim.SetBool ("isWalking", false);
+		anim.SetTrigger ("meteor");
+		attack3Time = attack3CD;
 		Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		bPrefab3 = Instantiate(ability3Prefab, mousePos, Quaternion.identity) as GameObject;
 		//bPrefab3.SetActive (true);
