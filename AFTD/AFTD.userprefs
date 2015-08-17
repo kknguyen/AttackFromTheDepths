@@ -1,12 +1,20 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MainMenu.cs">
     <Files>
-      <File FileName="Assets\Scripts\PlayerController.cs" Line="59" Column="4" />
-      <File FileName="Assets\Scripts\PlayerAbilities.cs" Line="81" Column="70" />
-      <File FileName="Assets\Scripts\GameManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\HUDScript.cs" Line="30" Column="2" />
-      <File FileName="Assets\Scripts\KingControl.cs" Line="171" Column="25" />
+      <File FileName="Assets\Scripts\KnightController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\LevelOneManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PlayerController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PlayerAbilities.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GameManager.cs" Line="84" Column="27" />
+      <File FileName="Assets\Scripts\HUDScript.cs" Line="140" Column="3" />
+      <File FileName="Assets\Scripts\BossDoorScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\FireBallClones.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\WarlockAttack.cs" Line="1" Column="1" />
+      <File FileName="Assets\SwordClones.cs" Line="20" Column="69" />
+      <File FileName="Assets\Scripts\EyeLaserBeams.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MainMenu.cs" Line="109" Column="40" />
+      <File FileName="Assets\Scripts\KingControl.cs" Line="256" Column="19" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

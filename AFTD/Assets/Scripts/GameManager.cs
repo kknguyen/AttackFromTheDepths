@@ -15,7 +15,9 @@ public class GameManager : MonoBehaviour
 	public static GameManager manager;
 
 	public float health;
-	public float experience;
+	public int level2;
+	public int level3;
+	public int unlockKing;
 
 
 	// Singleton design, only ONE instance of game manager at a time
@@ -43,7 +45,6 @@ public class GameManager : MonoBehaviour
 		// Create a save file with the data you want to save.
 		PlayerData data = new PlayerData();
 		data.health = health;
-		data.experience = experience;
 		
 		// Serialize the file and then write it, then close it.
 		formatter.Serialize (file, data);
@@ -60,7 +61,6 @@ public class GameManager : MonoBehaviour
 			file.Close();
 
 			health = data.health;
-			experience = data.experience;
 		}
 	}
 
@@ -79,5 +79,7 @@ class PlayerData
 {
 	//use gets/sets for security...but maybe later.
 	public float health;
-	public float experience;
+	public int level2 = 0;
+	public int level3 = 0;
+	public int unlockKing = 0;
 }

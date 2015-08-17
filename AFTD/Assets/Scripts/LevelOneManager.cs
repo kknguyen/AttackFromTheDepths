@@ -33,7 +33,7 @@ public class LevelOneManager : LevelManager {
 
 	protected override void SpawnEnemies()
 	{
-		print ("im still spawning");
+		//print ("im still spawning");
 		GameObject enemy = EnemyPooler.current.GetPooledObject();
 		
 		if (enemy == null) return;
@@ -83,7 +83,7 @@ public class LevelOneManager : LevelManager {
 		}
 		else
 		{
-			print("uh oh");
+			//print("uh oh");
 			return;
 		}
 	}

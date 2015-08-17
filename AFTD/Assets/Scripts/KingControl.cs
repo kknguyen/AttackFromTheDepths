@@ -267,6 +267,11 @@ public class KingControl : MonoBehaviour {
 		
 		// Tell the animator that the enemy is dead.
 		anim.SetTrigger("Dead");
+
+		// Once you defeat this boss, level 2 will be unlocked. You will also unlock the ability to play as this character.
+		GameManager gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+		gm.level2 = 1;
+		gm.unlockKing = 1;
 		Destroy(this.gameObject, 10);
 	}
 

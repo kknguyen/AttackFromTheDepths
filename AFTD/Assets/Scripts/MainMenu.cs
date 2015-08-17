@@ -15,26 +15,13 @@ public class MainMenu : MonoBehaviour
 	private float musicVolumeValue = 100f;
 	private float soundEffectsVolumeValue = 100f;
 
-	GUIStyle centered;
-	
-	void Awake()
-	{
+	public GUISkin mainMenuSkin;
 
-	}
-	
-	void Start()
-	{
+	GUIStyle centered;
 		
-	}
-	
-	// Update is called once per frame
-	void Update()
-	{
-		
-	}
-	
 	void OnGUI()
 	{
+		GUI.skin = mainMenuSkin;
 		FirstMenu();
 		LoadGameMenu();
 		OptionsMenu();
@@ -52,7 +39,7 @@ public class MainMenu : MonoBehaviour
 			// Change text to content when assets are created
 			if (GUI.Button(new Rect(Screen.width/2-100,Screen.height/2-100, 200, 50), "Play"))
 			{
-				Application.LoadLevel("LevelOneTest");
+				Application.LoadLevel("LevelOne");
 			}
 			
 			// Change text to content when assets are created
@@ -119,7 +106,7 @@ public class MainMenu : MonoBehaviour
 			musicVolumeValue = GUI.HorizontalSlider(new Rect(Screen.width/2-100,Screen.height/2-50, 200, 50), musicVolumeValue, 0f, 100f);
 			GUI.Label(new Rect(Screen.width/2+105,Screen.height/2-57, 200, 50), ((int)musicVolumeValue).ToString());
 			
-			GUI.Label(new Rect(Screen.width/2-250,Screen.height/2-7, 200, 50), "Sound Effects Volume");
+			GUI.Label(new Rect(Screen.width/2-200,Screen.height/2-7, 200, 50), "Sound Effects Volume");
 			soundEffectsVolumeValue = GUI.HorizontalSlider(new Rect(Screen.width/2-100,Screen.height/2-0, 200, 50), soundEffectsVolumeValue, 0f, 100f);
 			GUI.Label(new Rect(Screen.width/2+105,Screen.height/2-7, 200, 50), ((int)soundEffectsVolumeValue).ToString());
 			

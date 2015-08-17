@@ -17,7 +17,7 @@ public class ArrowClones : MonoBehaviour
 	void Start()
 	{
 		Destroy(this.gameObject, destroyTime);
-		GameObject thePlayer = GameObject.Find("Player1");
+		GameObject thePlayer = GameObject.FindGameObjectWithTag("Player");
 
 		this.GetComponent<Rigidbody2D>().velocity = (thePlayer.transform.position - transform.position).normalized * abilitySpeed;
 		transform.rotation = Quaternion.LookRotation(Vector3.forward, thePlayer.transform.position - transform.position);

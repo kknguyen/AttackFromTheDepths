@@ -15,7 +15,7 @@ public class WarlockAttack : MonoBehaviour
 	void Start()
 	{
 		theWarlock = GetComponent<WarlockController>();
-		thePlayer = GameObject.Find("Player1");
+		thePlayer = GameObject.FindGameObjectWithTag("Player");
 		castSpot = thePlayer.transform.position;
 	}
 	

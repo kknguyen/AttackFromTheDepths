@@ -24,7 +24,7 @@ public class FireBallClones : MonoBehaviour
 	{
 		anim = this.gameObject.GetComponent<Animator>();
 		Destroy(this.gameObject, destroyTime);
-		thePlayer = GameObject.Find("Player1");
+		thePlayer = GameObject.FindGameObjectWithTag("Player");
 		this.GetComponent<Rigidbody2D>().velocity = thePlayer.transform.up * abilitySpeed;
 
 		//This rotates the fireball so it looks like it is shooting straight out of the dragon's mouth.
