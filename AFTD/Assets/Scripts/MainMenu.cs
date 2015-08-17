@@ -15,13 +15,14 @@ public class MainMenu : MonoBehaviour
 	private float musicVolumeValue = 100f;
 	private float soundEffectsVolumeValue = 100f;
 
-	public GUISkin mainMenuSkin;
+	public GUISkin fontSkin;
 
 	GUIStyle centered;
 		
 	void OnGUI()
 	{
-		GUI.skin = mainMenuSkin;
+		GUI.skin = fontSkin;
+		GUI.skin.button.normal.background = null;
 		FirstMenu();
 		LoadGameMenu();
 		OptionsMenu();

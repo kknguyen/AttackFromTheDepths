@@ -9,6 +9,7 @@ public class LevelOneManager : LevelManager {
 	public GameObject bossWallOff;
 	private BoxCollider2D boxCollider;
 
+	public GUISkin fontSkin;
 
 	protected override void Awake()
 	{
@@ -90,8 +91,7 @@ public class LevelOneManager : LevelManager {
 	
 	protected override void StartBoss()
 	{
-		KingControl king = GameObject.FindGameObjectWithTag("theKing").GetComponent<KingControl>();
-		king.canMove = true;
+		GameObject.FindGameObjectWithTag("bossHealthBar").GetComponent<CanvasGroup>().alpha = 1;
 	}
 
 	void GameOver()
@@ -101,12 +101,14 @@ public class LevelOneManager : LevelManager {
 
 	void OnGUI()
 	{
+		GUI.skin = fontSkin;
+		GUI.skin.button.normal.background = null;
 		if (player.isDead)
 		{
 			GUI.DrawTexture(new Rect(0, 0, Screen.width,Screen.height), tint);
 			if(GUI.Button (new Rect(Screen.width/2-100,Screen.height/2-100, 200, 50),"Restart level"))
 			{
-				Application.LoadLevel("LevelOneTest");
+				Application.LoadLevel("LevelOne");
 			}
 			if(GUI.Button (new Rect(Screen.width/2-100,Screen.height/2-25, 200, 50),"Quit to Main Menu"))
 			{

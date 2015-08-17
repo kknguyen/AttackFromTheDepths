@@ -56,6 +56,9 @@ public class HUDScript : MonoBehaviour
 		bossHealthBar = GameObject.FindGameObjectWithTag("bossHealthBar").GetComponent<Slider>();
 		bossHealthValue = bossHealthBar.GetComponentInChildren<Text>();
 
+		// Hides the boss health bar until the player initiates the boss fight.
+		this.bossHealthBar.GetComponent<CanvasGroup>().alpha = 0;
+
 		ability1 = GameObject.FindGameObjectWithTag("ability1").GetComponent<Image>();
 		cdSlider1 = ability1.GetComponentInChildren<Slider>();
 		cdText1 = cdSlider1.GetComponentInChildren<Text>();

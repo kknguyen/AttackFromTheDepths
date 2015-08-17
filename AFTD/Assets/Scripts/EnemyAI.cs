@@ -46,10 +46,10 @@ public abstract class EnemyAI : MonoBehaviour
 		wallLayer = 1 << 8;
 		playerLayer = 1 << 9;
 		zeroVelocity = new Vector2 (0, 0);
-		maxRaycast = 10;
+		maxRaycast = 15;
 		patrolling = false;
 		waitTime = 3;
-		maximumRange = 20;
+		maximumRange = 25;
 		patrolRaycast = 1.5f;
 		attackCooldown = 0;
 	}

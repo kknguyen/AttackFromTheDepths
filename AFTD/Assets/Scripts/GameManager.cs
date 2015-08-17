@@ -61,6 +61,9 @@ public class GameManager : MonoBehaviour
 			file.Close();
 
 			health = data.health;
+			level2 = data.level2;
+			level3 = data.level3;
+			unlockKing = data.unlockKing;
 		}
 	}
 

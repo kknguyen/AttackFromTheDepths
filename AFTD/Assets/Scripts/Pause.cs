@@ -5,6 +5,7 @@ public class Pause : MonoBehaviour {
 	
 	public bool paused = false;
 	public Texture tint;
+	public GUISkin fontSkin;
 	
 	void Start ()
 	{
@@ -13,7 +14,8 @@ public class Pause : MonoBehaviour {
 	
 	void OnGUI()
 	{
-
+		GUI.skin = fontSkin;
+		GUI.skin.button.normal.background = null;
 		if(paused)
 		{
 			GUI.DrawTexture(new Rect(0, 0, Screen.width,Screen.height), tint);
@@ -26,7 +28,7 @@ public class Pause : MonoBehaviour {
 			{
 				
 			}
-			if(GUI.Button (new Rect(Screen.width/2-100,Screen.height/2+50, 200, 50),"Quit to Main Menu"))
+			if(GUI.Button (new Rect(Screen.width/2-150,Screen.height/2+50, 300, 50),"Quit to Main Menu"))
 			{
 				Application.LoadLevel("MainMenu");
 			}

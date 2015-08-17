@@ -9,6 +9,8 @@ public class KingControl : MonoBehaviour {
 	float movespeed;
 	bool isDead;
 	public bool canMove;
+	bool swordOn;
+	bool laserOn;
 
 	Vector2 zeroVel = new Vector2(0, 0);
 
@@ -56,7 +58,7 @@ public class KingControl : MonoBehaviour {
 
 		canMove = false;
 		meleeAttackCD = 0.7f;
-		laserAttackCD = 5f;
+		laserAttackCD = 7f;
 		swordSummonAttackCD = 5f;
 		teleCD = 5f;
 		movespeed = 3f;
@@ -75,6 +77,7 @@ public class KingControl : MonoBehaviour {
 		beams = Instantiate(beams, new Vector3(transform.position.x-0.03f, transform.position.y+4.8f, transform.position.z), Quaternion.identity) as GameObject;
 		beams.transform.SetParent(GameObject.FindGameObjectWithTag("theKing").transform);
 		beams.SetActive(false);
+		laserOn = false;
 	}
 
 	void Update()
@@ -105,18 +108,25 @@ public class KingControl : MonoBehaviour {
 	void KingAI()
 	{
 		// if low, teleport away and heal
-		if (currentHealth <= 100 && healCount < healLimit && canMove) {
+		if (currentHealth <= 100 && healCount < healLimit && canMove) 
+		{
 			print ("testing retreat");
 			StopMoving();
 			healCount++;
 			Retreat();
-		} else if (DistanceFromPlayer () < 3  && meleeAttackTime <= 0 && canMove) {
+		} 
+		else if (DistanceFromPlayer () < 3  && meleeAttackTime <= 0) 
+		{
 			StopMoving();
 			MeleeAttack();
-		} else if (DistanceFromPlayer () < 10 && (laserAttackTime <= 0 || swordSummonAttackTime <= 0) && canMove) {
+		} 
+		else if (DistanceFromPlayer () < 10 && (laserAttackTime <= 0 || swordSummonAttackTime <= 0)) 
+		{
 			StopMoving();
 			RandomRangedAttack ();
-		} else if (DistanceFromPlayer () >= 15 && teleTime <= 0 && canMove) {
+		} 
+		else if (DistanceFromPlayer () >= 15 && teleTime <= 0 && canMove) 
+		{
 			Vector2 playerLoc = thePlayer.transform.position;
 			StopMoving();
 			Teleport (thePlayer.transform.position);
@@ -205,19 +215,19 @@ public class KingControl : MonoBehaviour {
 
 	void RandomRangedAttack()
 	{
-		int i = Random.Range (0, 2);
+		int i = Random.Range (0, 10);
 		if(laserAttackTime <= 0 && swordSummonAttackTime <= 0)
 		{
-			if (i == 0)
+			if (i < 5)
 				ShootLaser();
 			else
 				SummonSword();
 		}
-		else if (laserAttackTime <= 0 && swordSummonAttackTime > 0)
+		else if (laserAttackTime <= 0 && swordSummonAttackTime > 0 && !swordOn)
 		{
 			ShootLaser();
 		}
-		else if (laserAttackTime > 0 && swordSummonAttackTime <= 0)
+		else if (laserAttackTime > 0 && swordSummonAttackTime <= 0 && !laserOn)
 		{
 			SummonSword();
 		}
@@ -226,6 +236,7 @@ public class KingControl : MonoBehaviour {
 
 	void ShootLaser()
 	{
+		laserOn = true;
 		laserAttackTime = laserAttackCD;
 		anim.SetTrigger("laser");
 		enemySound.clip = laserAudio;
@@ -239,11 +250,13 @@ public class KingControl : MonoBehaviour {
 
 	void ShootLaserOff()
 	{
+		laserOn = false;
 		beams.SetActive(false);
 	}
 
 	void SummonSword()
 	{
+		swordOn = true;
 		swordSummonAttackTime = swordSummonAttackCD;
 		anim.SetTrigger("summon");
 		enemySound.clip = swordSummonAudio;
@@ -255,6 +268,7 @@ public class KingControl : MonoBehaviour {
 	}
 	void ThrowSword()
 	{
+		swordOn = false;
 		Rigidbody2D sword = Instantiate (swords, transform.position, Quaternion.identity) as Rigidbody2D;
 	}
 
